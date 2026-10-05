@@ -8,7 +8,9 @@ export interface Experience {
   org: string;
   orgUrl?: string;
   start: string; // AAAA-MM
-  end?: string; // AAAA-MM; ausente = actualidad
+  end?: string; // AAAA-MM
+  /** true = empleo actual ("– actualidad"). Sin `end` ni `current` se muestra solo el inicio. */
+  current?: boolean;
   summary?: string;
 }
 
@@ -18,13 +20,15 @@ export const EXPERIENCE: Experience[] = [
     org: 'Luce IT',
     orgUrl: 'https://luceit.com/',
     start: '2026-10',
-    summary: 'Proyecto de Generative Engine Optimization (GEO) para BBVA.',
+    current: true,
+    summary: 'Cliente: BBVA.',
   },
   {
     role: 'Profesor de Data Analytics y Data Science',
     org: 'The Bridge | Digital Talent Accelerator',
     orgUrl: 'https://thebridge.tech/',
     start: '2026-03',
+    current: true,
     summary:
       'Clases en formato Live Review en el bootcamp online de Data Science e IA y formación en Claude. Director académico del programa Sports Data Analytics + Business Intelligence de ASE Athletics, diseñado junto a The Bridge.',
   },
@@ -40,7 +44,7 @@ export const EXPERIENCE: Experience[] = [
     orgUrl: 'https://mbitschool.com/',
     start: '2025-11',
     summary:
-      'Sesiones de web scraping en el Máster en Data Engineering, Cloud y Big Data y en el Máster en Data Science e Inteligencia Artificial.',
+      'Impartió sesiones de web scraping en el Máster en Data Engineering, Cloud y Big Data y en el Máster en Data Science e Inteligencia Artificial.',
   },
   {
     role: 'Data Scientist',
@@ -197,7 +201,8 @@ export interface Teaching {
   orgUrl?: string;
   program: string;
   role: string;
-  since: string;
+  /** Año de inicio si sigue vigente; ausente = experiencia anterior. */
+  since?: string;
 }
 
 export const TEACHING: Teaching[] = [
@@ -220,13 +225,11 @@ export const TEACHING: Teaching[] = [
     orgUrl: 'https://mbitschool.com/',
     program: 'Máster en Data Engineering, Cloud y Big Data · Máster en Data Science e IA',
     role: 'Profesor de Web Scraping',
-    since: '2025',
   },
   {
     org: 'Evolve',
     program: 'Formación en Data Science e IA',
     role: 'Profesor',
-    since: '2025',
   },
 ];
 
@@ -284,7 +287,7 @@ export interface Faq {
 export const ABOUT_FAQ: Faq[] = [
   {
     q: '¿Quién es Alejandro Cárabe?',
-    a: 'Alejandro Cárabe Arranz es un AI Engineer y Data Scientist de Madrid. Trabaja en IA generativa aplicada a negocio, forma en Data Science, web scraping y Claude en The Bridge y MBIT School, y divulga en español en el canal alwaysInDEV.',
+    a: 'Alejandro Cárabe Arranz es un AI Engineer y Data Scientist de Madrid. Trabaja en IA generativa aplicada a negocio, forma en Data Science y Claude en The Bridge y divulga en español en el canal alwaysInDEV.',
   },
   {
     q: '¿En qué está especializado?',
@@ -292,7 +295,7 @@ export const ABOUT_FAQ: Faq[] = [
   },
   {
     q: '¿Dónde da clase?',
-    a: 'En The Bridge (bootcamp de Data Science e IA y formación en Claude), en MBIT School (web scraping en dos másteres) y como director académico del programa Sports Data Analytics + Business Intelligence de ASE Athletics.',
+    a: 'En The Bridge (bootcamp de Data Science e IA y formación en Claude) y como director académico del programa Sports Data Analytics + Business Intelligence de ASE Athletics. Antes enseñó web scraping en dos másteres de MBIT School y Data Science e IA en Evolve.',
   },
   {
     q: '¿Da charlas o formación para empresas?',

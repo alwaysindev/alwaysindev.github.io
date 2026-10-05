@@ -29,7 +29,7 @@ const sorted = [...EXPERIENCE].sort((a, b) => b.start.localeCompare(a.start));
   <PageHeader crumbs={crumbs} label="sobre mí" title="Alejandro Cárabe" updated={SITE.lastReviewed}>
     <p>
       <strong>Alejandro Cárabe Arranz</strong> es AI Engineer y Data Scientist en {PERSON.city}. {employerLine()}
-      Forma en Data Science, web scraping y Claude en The Bridge y MBIT School, dirige el programa académico de Sports Data Analytics de
+      Forma en Data Science y Claude en The Bridge, ha enseñado web scraping en MBIT School, dirige el programa académico de Sports Data Analytics de
       ASE Athletics y creó <a href="/">alwaysInDEV</a>, un proyecto de divulgación técnica en
       español.
     </p>
@@ -46,13 +46,13 @@ const sorted = [...EXPERIENCE].sort((a, b) => b.start.localeCompare(a.start));
               status === 'hidden'
                 ? `${EMPLOYER.previous.title} en ${EMPLOYER.previous.company}.`
                 : status === 'current'
-                  ? `Soy ${EMPLOYER.title} en ${EMPLOYER.company}, donde trabajo en ${EMPLOYER.project} para ${EMPLOYER.client}: que la marca aparezca de forma correcta en las respuestas de los buscadores con IA.`
-                  : `Me incorporo a ${EMPLOYER.company} como ${EMPLOYER.title} en ${EMPLOYER.project} para ${EMPLOYER.client}: que la marca aparezca de forma correcta en las respuestas de los buscadores con IA.`
+                  ? `Soy ${EMPLOYER.title} en ${EMPLOYER.company}, donde trabajo para el cliente ${EMPLOYER.client}.`
+                  : `Me incorporo a ${EMPLOYER.company} como ${EMPLOYER.title}, para el cliente ${EMPLOYER.client}.`
             }
           </p>
           <p style="margin-top:.8rem">
-            En paralelo, doy clase en el bootcamp de Data Science e IA de The Bridge, formo en Claude y enseño web
-            scraping en dos másteres de MBIT School.
+            En paralelo, doy clase en el bootcamp de Data Science e IA de The Bridge, formo en Claude y dirijo el programa
+            académico de Sports Data Analytics de ASE Athletics.
           </p>
         </div>
         <div class="card card-accent">
@@ -75,7 +75,7 @@ const sorted = [...EXPERIENCE].sort((a, b) => b.start.localeCompare(a.start));
           sorted.map((e) => (
             <li>
               <span class="when">
-                {ym(e.start)} – {e.end ? ym(e.end) : 'actualidad'}
+                {e.end ? `${ym(e.start)} – ${ym(e.end)}` : e.current ? `${ym(e.start)} – actualidad` : ym(e.start)}
               </span>
               <h3>
                 {e.role} · <span class="org">{e.orgUrl ? <a href={e.orgUrl} rel="noopener" target="_blank">{e.org}</a> : e.org}</span>

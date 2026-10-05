@@ -49,9 +49,9 @@ const offer = [
       <h2 class="section-title">Experiencia docente</h2>
       <div class="grid">
         {
-          TEACHING.map((t) => (
+          [...TEACHING].sort((a, b) => Number(!!b.since) - Number(!!a.since)).map((t) => (
             <div class="card reveal">
-              <span class="meta">desde {t.since}</span>
+              <span class="meta">{t.since ? `Actualidad · desde ${t.since}` : 'Anteriormente'}</span>
               <h3>{t.orgUrl ? <a href={t.orgUrl} rel="noopener" target="_blank">{t.org}</a> : t.org}</h3>
               <p>{t.program}</p>
               <ul class="tags">

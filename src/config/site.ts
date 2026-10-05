@@ -66,7 +66,6 @@ export const EMPLOYER = {
   company: 'Luce IT',
   companyUrl: 'https://luceit.com/',
   client: 'BBVA',
-  project: 'un proyecto de Generative Engine Optimization (GEO)',
   startDate: '2026-10' as string | null, // 'AAAA-MM' o 'AAAA-MM-DD'
   previous: { title: 'Data Scientist', company: 'IO Investigación' },
 } as const;
@@ -81,10 +80,10 @@ export function employerStatus(now = new Date()): 'current' | 'incoming' | 'hidd
 export function employerLine(): string {
   const s = employerStatus();
   if (s === 'current') {
-    return `${EMPLOYER.title} en ${EMPLOYER.company}, en ${EMPLOYER.project} para ${EMPLOYER.client}.`;
+    return `${EMPLOYER.title} en ${EMPLOYER.company}, para el cliente ${EMPLOYER.client}.`;
   }
   if (s === 'incoming') {
-    return `Se incorpora a ${EMPLOYER.company} como ${EMPLOYER.title} en ${EMPLOYER.project} para ${EMPLOYER.client}.`;
+    return `Se incorpora a ${EMPLOYER.company} como ${EMPLOYER.title}, para el cliente ${EMPLOYER.client}.`;
   }
   return `${EMPLOYER.previous.title} en ${EMPLOYER.previous.company}.`;
 }

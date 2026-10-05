@@ -6,9 +6,9 @@ import { TALKS } from '../../data/profile';
 const status = employerStatus();
 const job =
   status === 'current'
-    ? `${EMPLOYER.title} at ${EMPLOYER.company}, working on a Generative Engine Optimization (GEO) project for ${EMPLOYER.client}.`
+    ? `${EMPLOYER.title} at ${EMPLOYER.company}, working for the client ${EMPLOYER.client}.`
     : status === 'incoming'
-      ? `Joining ${EMPLOYER.company} as ${EMPLOYER.title} on a Generative Engine Optimization (GEO) project for ${EMPLOYER.client}.`
+      ? `Joining ${EMPLOYER.company} as ${EMPLOYER.title}, working for the client ${EMPLOYER.client}.`
       : `${EMPLOYER.previous.title} at ${EMPLOYER.previous.company}.`;
 ---
 
@@ -38,8 +38,8 @@ const job =
           <span class="meta">// creator</span>
           <h2 style="font-size:1.4rem;margin-bottom:.6rem">{PERSON.name}</h2>
           <p>
-            AI Engineer and Data Scientist based in Madrid. {job} He teaches Data Science, web scraping and Claude at
-            The Bridge and MBIT School, is Academic Director of the Sports Data Analytics + Business Intelligence programme at ASE Athletics, and holds the
+            AI Engineer and Data Scientist based in Madrid. {job} He teaches Data Science and Claude at The Bridge, has taught web scraping at MBIT
+            School, is Academic Director of the Sports Data Analytics + Business Intelligence programme at ASE Athletics, and holds the
             Claude Certified Architect – Foundations certification from Anthropic. He co-founded alwaysInDEV with
             {' '}{BRAND.cofounder.name}.
           </p>
