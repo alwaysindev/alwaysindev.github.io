@@ -1,0 +1,168 @@
+---
+import '@fontsource-variable/jetbrains-mono/wght.css';
+import '@fontsource-variable/outfit/wght.css';
+import '../styles/global.css';
+import monoWoff2 from '@fontsource-variable/jetbrains-mono/files/jetbrains-mono-latin-wght-normal.woff2?url';
+import sansWoff2 from '@fontsource-variable/outfit/files/outfit-latin-wght-normal.woff2?url';
+
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { SITE, BRAND } from '../config/site';
+import {
+  abs,
+  brandNode,
+  websiteNode,
+  personNode,
+  webPageNode,
+  breadcrumbNode,
+  graph,
+  type Crumb,
+  type PageType,
+} from '../lib/schema';
+
+interface Props {
+  /** Título de la página sin sufijo de marca. En la home, el título completo. */
+  title: string;
+  description: string;
+  pageType?: PageType;
+  /** @id de la entidad principal (p. ej. la persona en /sobre-mi/). Por defecto, la marca. */
+  mainEntity?: string;
+  crumbs?: Crumb[];
+  /** Nodos JSON-LD adicionales de la página. */
+  schema?: Record<string, unknown>[];
+  ogType?: 'website' | 'article' | 'profile';
+  ogImage?: string;
+  dateModified?: string;
+  lang?: 'es' | 'en';
+  /** Pares hreflang: { es: '/', en: '/en/' } */
+  alternates?: Partial<Record<'es' | 'en', string>>;
+  noindex?: boolean;
+  isHome?: boolean;
+}
+
+const {
+  title,
+  description,
+  pageType = 'WebPage',
+  mainEntity,
+  crumbs = [],
+  schema = [],
+  ogType = 'website',
+  ogImage = SITE.defaultOgImage,
+  dateModified,
+  lang = 'es',
+  alternates,
+  noindex = false,
+  isHome = false,
+} = Astro.props;
+
+// --- Guardas de calidad SEO: fallan el build en vez de publicar algo roto. ---
+if (!title?.trim()) throw new Error(`[seo] Falta title en ${Astro.url.pathname}`);
+if (!description?.trim()) throw new Error(`[seo] Falta description en ${Astro.url.pathname}`);
+if (description.length < 70 || description.length > 170) {
+  throw new Error(
+    `[seo] description de ${Astro.url.pathname} tiene ${description.length} caracteres (rango 70–170): "${description}"`,
+  );
+}
+
+const fullTitle = isHome ? title : `${title} | ${BRAND.name}`;
+const canonical = abs(Astro.url.pathname);
+const ogImageUrl = abs(ogImage);
+const ogLocale = lang === 'en' ? 'en_US' : SITE.locale;
+
+const nodes = [
+  websiteNode(),
+  brandNode(),
+  personNode(),
+  webPageNode({
+    url: canonical,
+    type: pageType,
+    title: fullTitle,
+    description,
+    hasBreadcrumb: crumbs.length > 0,
+    mainEntity,
+    dateModified,
+    lang,
+  }),
+  ...(crumbs.length ? [breadcrumbNode(canonical, crumbs)] : []),
+  ...schema,
+];
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex, follow" />}
+    {
+      alternates &&
+        Object.entries(alternates).map(([hl, path]) => (
+          <link rel="alternate" hreflang={hl} href={abs(path!)} />
+        ))
+    }
+    {alternates?.es && <link rel="alternate" hreflang="x-default" href={abs(alternates.es)} />}
+
+    <link rel="preload" href={monoWoff2} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={sansWoff2} as="font" type="font/woff2" crossorigin />
+
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="theme-color" content="#0a0a0f" />
+    <link rel="alternate" type="application/rss+xml" title={`${BRAND.name} — blog`} href={abs('/rss.xml')} />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <meta property="og:type" content={ogType} />
+    <meta property="og:site_name" content={BRAND.name} />
+    <meta property="og:locale" content={ogLocale} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={`${BRAND.name}: ${BRAND.tagline}`} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageUrl} />
+
+    <script type="application/ld+json" set:html={graph(nodes)} />
+    <script is:inline>document.documentElement.classList.add('js');</script>
+    <slot name="head" />
+  </head>
+  <body>
+    <a class="skip-link" href="#contenido-principal">{lang === 'en' ? 'Skip to content' : 'Saltar al contenido'}</a>
+    <div class="grid-bg" aria-hidden="true"></div>
+    <div class="scanline" aria-hidden="true"></div>
+    <Header lang={lang} />
+    <main id="contenido-principal">
+      <slot />
+    </main>
+    <Footer lang={lang} />
+    <script>
+      const els = document.querySelectorAll('.reveal');
+      if ('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        const io = new IntersectionObserver(
+          (entries) => {
+            for (const e of entries) {
+              if (e.isIntersecting) {
+                e.target.classList.add('in');
+                io.unobserve(e.target);
+              }
+            }
+          },
+          { threshold: 0.1 },
+        );
+        els.forEach((el) => io.observe(el));
+      } else {
+        els.forEach((el) => el.classList.add('in'));
+      }
+    </script>
+  </body>
+</html>

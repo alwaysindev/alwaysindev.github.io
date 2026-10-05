@@ -1,0 +1,96 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHeader from '../components/PageHeader.astro';
+import { PROFILES } from '../config/site';
+import { TALKS, TALK_CATALOG } from '../data/profile';
+import { IDS, eventNodes } from '../lib/schema';
+
+const crumbs = [{ name: 'Charlas', path: '/charlas/' }];
+const verified = TALKS.filter((t) => t.verified);
+const others = TALKS.filter((t) => !t.verified);
+const fmt = (d: string) =>
+  new Date(d).toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' });
+---
+
+<Base
+  title="Charlas y talleres: web scraping, GEO y Claude"
+  description="Charlas y talleres de Alejandro Cárabe sobre web scraping con Scrapy, GEO y Claude Code. Eventos anteriores, catálogo y cómo proponer una charla."
+  crumbs={crumbs}
+  mainEntity={IDS.person}
+  schema={eventNodes(TALKS)}
+>
+  <PageHeader crumbs={crumbs} label="charlas" title="Charlas y talleres">
+    <p>
+      Charlas técnicas con demo en directo, pensadas para que el público salga sabiendo hacer algo nuevo. He hablado en
+      comunidades y eventos como {TALKS.map((t) => t.event.split(' — ')[0]).join(', ')}.
+    </p>
+  </PageHeader>
+
+  <section style="padding-top:2rem">
+    <div class="section-inner">
+      <p class="section-label">catálogo</p>
+      <h2 class="section-title">¿De qué puedo hablar en tu evento?</h2>
+      <div class="grid grid-2">
+        {
+          TALK_CATALOG.map((t) => (
+            <article class="card card-accent reveal">
+              <span class="meta">
+                {t.level} · {t.duration} · {t.formats.join(' / ')}
+              </span>
+              <h3>{t.title}</h3>
+              <p>{t.abstract}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section style="padding-top:2rem">
+    <div class="section-inner">
+      <p class="section-label">historial</p>
+      <h2 class="section-title">Charlas anteriores</h2>
+      <ol class="timeline">
+        {
+          verified.map((t) => (
+            <li>
+              <span class="when">
+                {t.date && <time datetime={t.date}>{fmt(t.date)}</time>}
+                {t.city && ` · ${t.city}`}
+              </span>
+              <h3>{t.title}</h3>
+              <p>
+                {t.eventUrl ? <a href={t.eventUrl} rel="noopener" target="_blank">{t.event}</a> : t.event}
+                {t.venue && ` · ${t.venue}`}
+              </p>
+              {t.summary && <p>{t.summary}</p>}
+            </li>
+          ))
+        }
+        {
+          others.map((t) => (
+            <li>
+              <span class="when">{t.city ?? ''}</span>
+              <h3>{t.event}</h3>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <section style="padding-top:2rem">
+    <div class="section-inner">
+      <p class="section-label">organizadores</p>
+      <h2 class="section-title">¿Organizas un evento?</h2>
+      <p class="section-desc">
+        Cuéntame la fecha, el formato y el público. Tienes las bios y la información para el programa en el
+        <a href="/prensa/">kit de prensa</a>, y mis sesiones en <a href={PROFILES.sessionize} rel="me noopener" target="_blank">Sessionize</a>.
+      </p>
+      <div class="btn-row">
+        <a class="btn btn-primary" href="/contacto/">Proponer una charla</a>
+        <a class="btn btn-outline" href="/prensa/">Kit de prensa</a>
+      </div>
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,14 @@
+{
+  "name": "alwaysInDEV",
+  "short_name": "alwaysInDEV",
+  "description": "Divulgación técnica en español sobre IA, Data Science y programación.",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#0a0a0f",
+  "theme_color": "#0a0a0f",
+  "lang": "es",
+  "icons": [
+    { "src": "/favicon.svg", "type": "image/svg+xml", "sizes": "any" },
+    { "src": "/icon-512.png", "type": "image/png", "sizes": "512x512" }
+  ]
+}

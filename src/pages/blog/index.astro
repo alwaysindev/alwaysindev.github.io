@@ -1,0 +1,39 @@
+---
+import { getPosts } from '../../lib/posts';
+import Base from '../../layouts/Base.astro';
+import PageHeader from '../../components/PageHeader.astro';
+
+const crumbs = [{ name: 'Blog', path: '/blog/' }];
+const posts = await getPosts();
+const fmt = (d: Date) => d.toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' });
+---
+
+<Base
+  title="Blog: IA, GEO, Data Science y web scraping"
+  description="Artículos de alwaysInDEV sobre IA generativa, GEO, Claude, Data Science y web scraping. Respuestas directas, con fuentes y fecha de actualización."
+  pageType="CollectionPage"
+  crumbs={crumbs}
+>
+  <PageHeader crumbs={crumbs} label="blog" title="Blog">
+    <p>Artículos para resolver una pregunta concreta: respuesta primero, después el detalle, y siempre con fuentes.</p>
+  </PageHeader>
+  <section style="padding-top:2rem">
+    <div class="section-inner">
+      {posts.length === 0 && <p class="lead">Pronto habrá artículos aquí.</p>}
+      <div class="grid grid-2">
+        {
+          posts.map((p) => (
+            <a class="card hoverable reveal" href={`/blog/${p.id}/`}>
+              <time class="meta" datetime={p.data.pubDate.toISOString()}>{fmt(p.data.pubDate)}</time>
+              <h2 style="font-size:1.25rem;margin-bottom:.6rem">{p.data.title}</h2>
+              <p>{p.data.description}</p>
+              <ul class="tags">
+                {p.data.tags.map((t) => <li class="tag">{t}</li>)}
+              </ul>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+</Base>

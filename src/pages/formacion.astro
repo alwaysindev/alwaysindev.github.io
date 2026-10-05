@@ -1,0 +1,91 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHeader from '../components/PageHeader.astro';
+import { TEACHING } from '../data/profile';
+import { IDS } from '../lib/schema';
+
+const crumbs = [{ name: 'Formación', path: '/formacion/' }];
+
+const offer = [
+  {
+    title: 'Web scraping con Python y Scrapy',
+    text: 'De las peticiones HTTP a un spider completo con Scrapy: selectores, paginación, exportación de datos y buenas prácticas para no saturar los sitios.',
+    who: 'Analistas, data engineers y perfiles de datos que necesitan fuentes externas.',
+  },
+  {
+    title: 'Claude y Claude Code para equipos',
+    text: 'Uso práctico de Claude en el trabajo diario: prompting, revisión de resultados y flujos con Claude Code para análisis y prototipado.',
+    who: 'Equipos técnicos y de datos que empiezan a trabajar con IA generativa.',
+  },
+  {
+    title: 'Data Science con Python y SQL',
+    text: 'Fundamentos de análisis de datos, visualización y machine learning con Python y SQL, con ejercicios sobre datos reales.',
+    who: 'Personas en reconversión, bootcamps y equipos de negocio.',
+  },
+  {
+    title: 'Data Analytics aplicada al deporte',
+    text: 'Programas sectoriales de analítica: diseño del itinerario, coordinación del profesorado y seguimiento del alumnado.',
+    who: 'Organizaciones que quieren un programa académico completo, no solo sesiones sueltas.',
+  },
+];
+---
+
+<Base
+  title="Formación en Data Science, web scraping y Claude"
+  description="Formación en Data Science, web scraping con Scrapy, IA generativa y Claude para bootcamps, másteres y empresas, impartida por Alejandro Cárabe."
+  crumbs={crumbs}
+  mainEntity={IDS.person}
+>
+  <PageHeader crumbs={crumbs} label="formación" title="Formación técnica que se aplica al día siguiente">
+    <p>
+      Doy clase en bootcamps y másteres y diseño formación a medida para empresas. Enseño con datos reales, código
+      abierto y ejercicios que se pueden reutilizar en el trabajo.
+    </p>
+  </PageHeader>
+
+  <section style="padding-top:2rem">
+    <div class="section-inner">
+      <p class="section-label">dónde enseño</p>
+      <h2 class="section-title">Experiencia docente</h2>
+      <div class="grid">
+        {
+          TEACHING.map((t) => (
+            <div class="card reveal">
+              <span class="meta">desde {t.since}</span>
+              <h3>{t.orgUrl ? <a href={t.orgUrl} rel="noopener" target="_blank">{t.org}</a> : t.org}</h3>
+              <p>{t.program}</p>
+              <ul class="tags">
+                <li class="tag">{t.role}</li>
+              </ul>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section style="padding-top:2rem">
+    <div class="section-inner">
+      <p class="section-label">para tu equipo</p>
+      <h2 class="section-title">¿Qué formación puedo impartir?</h2>
+      <p class="section-desc">Formatos de 1 sesión a programas completos, en remoto o presencial en Madrid.</p>
+      <div class="grid grid-2">
+        {
+          offer.map((o) => (
+            <div class="card card-accent reveal">
+              <h3>{o.title}</h3>
+              <p>{o.text}</p>
+              <p style="margin-top:.8rem">
+                <strong style="color:var(--text-primary)">Para quién:</strong> {o.who}
+              </p>
+            </div>
+          ))
+        }
+      </div>
+      <div class="btn-row" style="margin-top:2.5rem">
+        <a class="btn btn-primary" href="/contacto/">Pedir una propuesta</a>
+        <a class="btn btn-outline" href="/contenido/#codigo">Ver material abierto</a>
+      </div>
+    </div>
+  </section>
+</Base>

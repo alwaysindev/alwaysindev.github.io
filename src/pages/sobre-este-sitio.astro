@@ -1,0 +1,148 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHeader from '../components/PageHeader.astro';
+import { SITE } from '../config/site';
+import { IDS, abs } from '../lib/schema';
+
+const crumbs = [{ name: 'Sobre este sitio', path: '/sobre-este-sitio/' }];
+const url = abs('/sobre-este-sitio/');
+
+const article = {
+  '@type': 'TechArticle',
+  '@id': `${url}#article`,
+  headline: 'Cómo está optimizado este sitio para buscadores y motores generativos',
+  description:
+    'Qué medidas de SEO y GEO aplica alwaysindev.es, cuáles tienen respaldo en documentación oficial y cuáles son experimentales.',
+  author: { '@id': IDS.person },
+  publisher: { '@id': IDS.brand },
+  dateModified: SITE.lastReviewed,
+  inLanguage: 'es',
+  mainEntityOfPage: { '@id': `${url}#webpage` },
+};
+
+const before = [
+  ['Meta description, canonical, Open Graph', 'No existían'],
+  ['Datos estructurados (JSON-LD)', 'Ninguno'],
+  ['robots.txt y sitemap.xml', '404'],
+  ['Estructura', 'Una sola URL con todo el contenido'],
+  ['Enlace principal a YouTube', 'Roto (404)'],
+  ['Fuentes', 'Cargadas desde Google Fonts, bloqueando el render'],
+];
+
+const measures = [
+  {
+    what: 'HTML estático con todo el contenido',
+    why: 'Muchos rastreadores de IA no ejecutan JavaScript. Aquí, lo que importa está en el HTML que devuelve el servidor.',
+    evidence: 'Alta',
+  },
+  {
+    what: 'Una URL por intención',
+    why: 'Contenido, formación, charlas, sobre mí y blog tienen páginas propias con título, descripción y canonical únicos.',
+    evidence: 'Alta',
+  },
+  {
+    what: 'JSON-LD con @id estables',
+    why: 'Organization (alwaysInDEV), Person (Alejandro), WebSite, páginas, migas, artículos y eventos verificados, enlazados entre sí. Solo describe lo que también se ve en la página.',
+    evidence: 'Alta para SEO; para GEO, indirecta',
+  },
+  {
+    what: 'Consistencia de entidad',
+    why: 'Mismo nombre, misma frase descriptiva y enlaces recíprocos con LinkedIn, Sessionize, GitHub y YouTube.',
+    evidence: 'Alta',
+  },
+  {
+    what: 'Escritura answer-first',
+    why: 'Cada artículo abre con una respuesta directa, usa preguntas como encabezados y muestra la fecha de actualización.',
+    evidence: 'Media',
+  },
+  {
+    what: 'robots.txt abierto a buscadores con IA',
+    why: 'OAI-SearchBot, Claude-SearchBot y PerplexityBot, entre otros, tienen acceso explícito. Un proyecto de divulgación quiere que lo citen.',
+    evidence: 'Alta (documentación de OpenAI y Anthropic)',
+  },
+  {
+    what: 'Sitemap, Bing Webmaster Tools e IndexNow',
+    why: 'Que las páginas nuevas se descubran rápido en Google y Bing.',
+    evidence: 'Alta',
+  },
+  {
+    what: 'llms.txt',
+    why: 'Resumen del sitio para agentes. Google afirma que no lo usa; se mantiene porque cuesta poco y lo leen algunos agentes de código.',
+    evidence: 'Experimental',
+  },
+];
+---
+
+<Base
+  title="Sobre este sitio: SEO y GEO aplicados"
+  description="Qué medidas de SEO y GEO aplica alwaysindev.es, cuáles tienen respaldo en documentación oficial, cuáles son experimentales y cómo se miden."
+  crumbs={crumbs}
+  dateModified={SITE.lastReviewed}
+  schema={[article]}
+>
+  <PageHeader crumbs={crumbs} label="sobre este sitio" title="Este sitio es una demo de GEO" updated={SITE.lastReviewed}>
+    <p>
+      <strong>GEO (Generative Engine Optimization)</strong> es conseguir que los buscadores con IA, como ChatGPT,
+      Perplexity, Claude o los AI Overviews de Google, entiendan bien quién eres y te citen. Esta página documenta qué
+      aplica este sitio, con qué evidencia y cómo se mide.
+    </p>
+  </PageHeader>
+
+  <section style="padding-top:2rem">
+    <div class="section-inner prose" style="max-width:860px">
+      <h2>¿Qué dicen las fuentes oficiales?</h2>
+      <p>
+        La guía de Google sobre funciones de IA generativa en la búsqueda es clara: no hay requisitos extra para aparecer
+        en AI Overviews o AI Mode. La página tiene que estar indexada y ser apta para mostrarse con fragmento, y
+        <strong>no hacen falta archivos especiales para IA, markup adicional ni versiones en Markdown</strong>. Es decir,
+        el SEO técnico bien hecho es la base del GEO.
+      </p>
+      <p>
+        OpenAI y Anthropic documentan rastreadores distintos para búsqueda y para entrenamiento. Bloquear
+        <code>OAI-SearchBot</code> saca un sitio de las respuestas de búsqueda de ChatGPT, y bloquear
+        <code>Claude-SearchBot</code> reduce su visibilidad en la búsqueda de Claude.
+      </p>
+      <ul>
+        <li><a href="https://developers.google.com/search/docs/fundamentals/ai-optimization-guide" rel="noopener">Google Search Central: optimizar para funciones de IA generativa</a></li>
+        <li><a href="https://developers.openai.com/api/docs/bots" rel="noopener">OpenAI: rastreadores y user agents</a></li>
+        <li><a href="https://support.claude.com/en/articles/8896518-does-anthropic-crawl-data-from-the-web-and-how-can-site-owners-block-the-crawler" rel="noopener">Anthropic: rastreadores y robots.txt</a></li>
+      </ul>
+
+      <h2>¿Cómo estaba el sitio antes?</h2>
+      <p>Auditoría del sitio anterior, a 5 de octubre de 2026:</p>
+      <table>
+        <thead><tr><th>Aspecto</th><th>Estado</th></tr></thead>
+        <tbody>{before.map(([a, b]) => <tr><td>{a}</td><td>{b}</td></tr>)}</tbody>
+      </table>
+
+      <h2>¿Qué aplica ahora y con qué evidencia?</h2>
+      <table>
+        <thead><tr><th>Medida</th><th>Por qué</th><th>Evidencia</th></tr></thead>
+        <tbody>
+          {measures.map((m) => <tr><td><strong>{m.what}</strong></td><td>{m.why}</td><td>{m.evidence}</td></tr>)}
+        </tbody>
+      </table>
+
+      <h2>¿Qué no se hace a propósito?</h2>
+      <ul>
+        <li>No hay texto oculto ni páginas escritas solo para bots.</li>
+        <li>No hay datos estructurados que no se correspondan con contenido visible.</li>
+        <li>No se publican fechas ni charlas sin una fuente que las respalde.</li>
+        <li>No hay analítica con cookies: la medición viene de Search Console y Bing Webmaster Tools.</li>
+      </ul>
+
+      <h2>¿Cómo se mide?</h2>
+      <p>
+        Cada mes se pregunta a ChatGPT, Perplexity, Gemini y Claude “¿Qué es alwaysInDEV?” y “¿Quién es Alejandro
+        Cárabe?”. Se anota si la respuesta es correcta y si cita este sitio. También se revisa el informe de rendimiento
+        en IA generativa de Search Console.
+      </p>
+      <table>
+        <thead><tr><th>Fecha</th><th>Motor</th><th>¿Respuesta correcta?</th><th>¿Cita el sitio?</th></tr></thead>
+        <tbody>
+          <tr><td colspan="4">Primera medición prevista unas 4 semanas después del lanzamiento.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</Base>

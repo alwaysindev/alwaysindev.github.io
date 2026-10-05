@@ -1,0 +1,25 @@
+# alwaysindev.es — robots.txt
+# Política: acceso abierto. Es un proyecto de divulgación y queremos que buscadores
+# y motores generativos puedan leerlo y citarlo. Ver /sobre-este-sitio/.
+
+User-agent: *
+Allow: /
+
+# Buscadores con IA (aparecer y ser citado en respuestas)
+User-agent: OAI-SearchBot
+User-agent: ChatGPT-User
+User-agent: Claude-SearchBot
+User-agent: Claude-User
+User-agent: PerplexityBot
+User-agent: Perplexity-User
+Allow: /
+
+# Rastreadores de entrenamiento (permitidos de forma explícita)
+User-agent: GPTBot
+User-agent: ClaudeBot
+User-agent: Google-Extended
+User-agent: Applebot-Extended
+User-agent: CCBot
+Allow: /
+
+Sitemap: https://alwaysindev.es/sitemap-index.xml
