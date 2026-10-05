@@ -76,7 +76,6 @@ export function personNode(): Node {
     worksFor,
     affiliation: [
       { '@type': 'EducationalOrganization', name: 'The Bridge', url: 'https://thebridge.tech/' },
-      { '@type': 'EducationalOrganization', name: 'MBIT School', url: 'https://mbitschool.com/' },
     ],
     address: { '@type': 'PostalAddress', addressLocality: PERSON.city, addressCountry: PERSON.country },
     knowsAbout: [...PERSON.knowsAbout],
