@@ -151,22 +151,6 @@ export const TALK_CATALOG: TalkOffer[] = [
     duration: '30–45 min',
     formats: ['Charla', 'Taller práctico'],
   },
-  {
-    title: 'GEO sin humo: cómo deciden los buscadores con IA a quién citar',
-    abstract:
-      'Qué es Generative Engine Optimization, qué dicen realmente Google, OpenAI y Anthropic sobre cómo rastrean y citan, y qué medidas tienen evidencia frente a las que son moda. Con un caso real: el propio sitio del ponente.',
-    level: 'Intermedio',
-    duration: '30–45 min',
-    formats: ['Charla'],
-  },
-  {
-    title: 'De analista a agente: Claude Code en el día a día de un equipo de datos',
-    abstract:
-      'Flujos de trabajo reales con Claude Code para análisis, limpieza de datos y prototipado: cuándo acelera, cuándo no y cómo revisar lo que produce. Basado en la experiencia formando equipos con Claude.',
-    level: 'Intermedio',
-    duration: '30–45 min',
-    formats: ['Charla', 'Taller práctico'],
-  },
 ];
 
 export interface Teaching {
@@ -273,7 +257,7 @@ export const ABOUT_FAQ: Faq[] = [
   },
   {
     q: '¿Da charlas o formación para empresas?',
-    a: 'Sí. Da charlas sobre web scraping, GEO y Claude Code, y diseña formación a medida en Python, SQL, scraping e IA generativa. Puedes proponerle una charla o una formación desde la página de contacto.',
+    a: 'Sí. Ha dado charlas sobre web scraping con Scrapy y diseña formación a medida en Python, SQL, web scraping, IA generativa y Claude. Puedes proponerle una charla o una formación desde la página de contacto.',
   },
   {
     q: '¿Qué es alwaysInDEV?',

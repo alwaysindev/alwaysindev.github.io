@@ -10,7 +10,7 @@ const bioShort = `${PERSON.name} es AI Engineer y Data Scientist en Madrid, form
 
 const bioMedium = `${PERSON.name} es AI Engineer y Data Scientist en Madrid. ${employerLine()} Da clase en el bootcamp de Data Science e IA de The Bridge, donde también forma en Claude, y enseña web scraping en dos másteres de MBIT School. Coordina un programa de Data Analytics aplicada al deporte para ASE Athletics. Está certificado como Claude Certified Architect – Foundations por Anthropic. Es cofundador de alwaysInDEV, un proyecto de divulgación técnica en español con vídeos, formación y código abierto.`;
 
-const bioLong = `${bioMedium} Antes trabajó como Data Scientist en TMC Spain, en proyectos de IA generativa para una gran empresa de telecomunicaciones, y como Data Scientist / AI Engineer en Capgemini. Empezó en la docencia como teacher assistant de Data Science en The Bridge. Tiene un máster en Data Engineering, Cloud & Big Data y un doble grado en Marketing y ADE. Habla de web scraping, Generative Engine Optimization (GEO) y del uso de Claude Code en equipos de datos.`;
+const bioLong = `${bioMedium} Antes trabajó como Data Scientist en TMC Spain, en proyectos de IA generativa para una gran empresa de telecomunicaciones, y como Data Scientist / AI Engineer en Capgemini. Empezó en la docencia como teacher assistant de Data Science en The Bridge. Tiene un máster en Data Engineering, Cloud & Big Data y un doble grado en Marketing y ADE. Ha dado charlas sobre web scraping con Scrapy.`;
 
 const bios = [
   { label: 'Corta (≈30 palabras)', text: bioShort },
@@ -55,7 +55,7 @@ const bios = [
           <tr><th scope="row">Cargo para el programa</th><td>AI Engineer y Data Scientist · Creador de alwaysInDEV</td></tr>
           <tr><th scope="row">Ciudad</th><td>{PERSON.city}</td></tr>
           <tr><th scope="row">Idiomas de las charlas</th><td>Español</td></tr>
-          <tr><th scope="row">Temas</th><td>Web scraping con Scrapy · GEO · Claude y Claude Code · Data Science con Python</td></tr>
+          <tr><th scope="row">Temas</th><td>Web scraping con Scrapy · Data Science con Python · IA generativa</td></tr>
           <tr><th scope="row">Web</th><td><a href={SITE.url}>{SITE.url.replace('https://', '')}</a></td></tr>
           <tr><th scope="row">Canal</th><td><a href={BRAND.socials.youtube}>youtube.com/@InDevAlways</a></td></tr>
         </tbody>
