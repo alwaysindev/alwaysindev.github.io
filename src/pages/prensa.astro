@@ -1,0 +1,81 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHeader from '../components/PageHeader.astro';
+import { PERSON, BRAND, SITE, employerLine } from '../config/site';
+import { IDS } from '../lib/schema';
+
+const crumbs = [{ name: 'Prensa', path: '/prensa/' }];
+
+const bioShort = `${PERSON.name} es AI Engineer y Data Scientist en Madrid, formador en Data Science, web scraping y Claude, y creador del proyecto de divulgación alwaysInDEV.`;
+
+const bioMedium = `${PERSON.name} es AI Engineer y Data Scientist en Madrid. ${employerLine()} Da clase en el bootcamp de Data Science e IA de The Bridge, donde también forma en Claude, y enseña web scraping en dos másteres de MBIT School. Coordina un programa de Data Analytics aplicada al deporte para ASE Athletics. Está certificado como Claude Certified Architect – Foundations por Anthropic. Es cofundador de alwaysInDEV, un proyecto de divulgación técnica en español con vídeos, formación y código abierto.`;
+
+const bioLong = `${bioMedium} Antes trabajó como Data Scientist en TMC Spain, en proyectos de IA generativa para una gran empresa de telecomunicaciones, y como Data Scientist / AI Engineer en Capgemini. Empezó en la docencia como teacher assistant de Data Science en The Bridge. Tiene un máster en Data Engineering, Cloud & Big Data y un doble grado en Marketing y ADE. Habla de web scraping, Generative Engine Optimization (GEO) y del uso de Claude Code en equipos de datos.`;
+
+const bios = [
+  { label: 'Corta (≈30 palabras)', text: bioShort },
+  { label: 'Media (≈90 palabras)', text: bioMedium },
+  { label: 'Larga (≈150 palabras)', text: bioLong },
+];
+---
+
+<Base
+  title="Kit de prensa y bios de Alejandro Cárabe"
+  description="Bios en tres longitudes, datos para el programa y forma recomendada de citar a Alejandro Cárabe y alwaysInDEV en eventos, prensa y artículos."
+  pageType="ProfilePage"
+  mainEntity={IDS.person}
+  crumbs={crumbs}
+  dateModified={SITE.lastReviewed}
+>
+  <PageHeader crumbs={crumbs} label="prensa" title="Kit de prensa" updated={SITE.lastReviewed}>
+    <p>Todo lo que necesitas para presentar a {PERSON.shortName} en un evento o un artículo. Puedes copiar los textos tal cual.</p>
+  </PageHeader>
+
+  <section style="padding-top:2rem">
+    <div class="section-inner">
+      <div class="grid">
+        {
+          bios.map((b) => (
+            <div class="card">
+              <span class="meta">{b.label}</span>
+              <p style="color:var(--text-primary)">{b.text}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section style="padding-top:2rem">
+    <div class="section-inner prose">
+      <h2>Datos para el programa</h2>
+      <table>
+        <tbody>
+          <tr><th scope="row">Nombre</th><td>{PERSON.name}</td></tr>
+          <tr><th scope="row">Cargo para el programa</th><td>AI Engineer y Data Scientist · Creador de alwaysInDEV</td></tr>
+          <tr><th scope="row">Ciudad</th><td>{PERSON.city}</td></tr>
+          <tr><th scope="row">Idiomas de las charlas</th><td>Español</td></tr>
+          <tr><th scope="row">Temas</th><td>Web scraping con Scrapy · GEO · Claude y Claude Code · Data Science con Python</td></tr>
+          <tr><th scope="row">Web</th><td><a href={SITE.url}>{SITE.url.replace('https://', '')}</a></td></tr>
+          <tr><th scope="row">Canal</th><td><a href={BRAND.socials.youtube}>youtube.com/@InDevAlways</a></td></tr>
+        </tbody>
+      </table>
+
+      <h2>Cómo citar</h2>
+      <blockquote>
+        <p>{PERSON.name} (alwaysInDEV), AI Engineer y Data Scientist.</p>
+      </blockquote>
+      <p>Por favor, escribe el apellido con tilde (Cárabe) y el nombre del proyecto como <strong>alwaysInDEV</strong>.</p>
+      {
+        PERSON.headshot && (
+          <>
+            <h2>Fotografía</h2>
+            <p>
+              <a href={PERSON.headshot} download>Descargar foto en alta resolución</a>
+            </p>
+          </>
+        )
+      }
+    </div>
+  </section>
+</Base>

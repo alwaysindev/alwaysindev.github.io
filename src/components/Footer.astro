@@ -1,0 +1,48 @@
+---
+import { BRAND, PERSON, PROFILES, NAV } from '../config/site';
+
+interface Props {
+  lang?: 'es' | 'en';
+}
+const { lang = 'es' } = Astro.props;
+const year = new Date().getFullYear();
+const en = lang === 'en';
+---
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-about">
+      <a href="/" class="nav-logo" aria-label="alwaysInDEV">
+        <span class="muted">./</span><span class="always">always</span><span class="muted">In</span><span class="dev">DEV</span>
+      </a>
+      <p>
+        {
+          en
+            ? 'Hands-on technical content in Spanish about AI, Data Science and programming. Created by '
+            : 'Divulgación técnica en español sobre IA, Data Science y programación. Un proyecto de '
+        }
+        <a href="/sobre-mi/">{PERSON.shortName}</a>.
+      </p>
+    </div>
+    <div>
+      <h2>{en ? 'Site' : 'Sitio'}</h2>
+      <ul>
+        {NAV.map((n) => <li><a href={n.href}>{n.label}</a></li>)}
+        <li><a href="/prensa/">prensa</a></li>
+        <li><a href="/sobre-este-sitio/">sobre-este-sitio</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>{en ? 'Follow' : 'Redes'}</h2>
+      <ul>
+        <li><a href={BRAND.socials.youtube} rel="me noopener" target="_blank">YouTube</a></li>
+        <li><a href={BRAND.socials.github} rel="me noopener" target="_blank">GitHub</a></li>
+        <li><a href={BRAND.socials.instagram} rel="me noopener" target="_blank">Instagram</a></li>
+        <li><a href={BRAND.socials.tiktok} rel="me noopener" target="_blank">TikTok</a></li>
+        <li><a href={PROFILES.linkedin} rel="me noopener" target="_blank">LinkedIn</a></li>
+        <li><a href="/rss.xml">RSS</a></li>
+      </ul>
+    </div>
+  </div>
+  <p class="footer-copy">© {year} {BRAND.name} · {en ? 'Made with Astro, coffee and the odd bug.' : 'Hecho con Astro, café y algún que otro bug.'}</p>
+</footer>

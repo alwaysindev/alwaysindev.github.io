@@ -1,0 +1,87 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHeader from '../components/PageHeader.astro';
+import { BRAND } from '../config/site';
+import { PROJECTS } from '../data/profile';
+import { IDS } from '../lib/schema';
+
+const crumbs = [{ name: 'Contenido', path: '/contenido/' }];
+
+const itemList = {
+  '@type': 'ItemList',
+  name: 'Repositorios abiertos de alwaysInDEV',
+  itemListElement: PROJECTS.map((p, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    item: {
+      '@type': 'SoftwareSourceCode',
+      name: p.name,
+      description: p.description,
+      codeRepository: p.url,
+      programmingLanguage: p.language,
+      author: { '@id': IDS.brand },
+    },
+  })),
+};
+---
+
+<Base
+  title="Contenido: vídeos, píldoras y código abierto"
+  description="Vídeos de YouTube, píldoras cortas y repositorios abiertos de alwaysInDEV sobre Python, Data Science, web scraping, LLMs y orquestación de datos."
+  pageType="CollectionPage"
+  crumbs={crumbs}
+  schema={[itemList]}
+>
+  <PageHeader crumbs={crumbs} label="contenido" title="Contenido técnico, práctico y en español">
+    <p>
+      Tutoriales largos para ir al detalle, píldoras cortas para descubrir herramientas y repositorios abiertos para
+      practicar con el mismo código de los vídeos.
+    </p>
+  </PageHeader>
+
+  <section style="padding-top:2rem">
+    <div class="section-inner">
+      <div class="grid">
+        <a class="card hoverable card-accent" href={BRAND.socials.youtube} rel="noopener" target="_blank">
+          <span class="card-icon" aria-hidden="true">&#127909;</span>
+          <h2 style="font-size:1.25rem;margin-bottom:.6rem">YouTube</h2>
+          <p>Vídeos largos y tutoriales paso a paso sobre Python, Data Science, IA generativa y herramientas como Claude Code.</p>
+          <span class="more">youtube.com/@InDevAlways →</span>
+        </a>
+        <a class="card hoverable card-accent" href={BRAND.socials.instagram} rel="noopener" target="_blank">
+          <span class="card-icon" aria-hidden="true">&#9889;</span>
+          <h2 style="font-size:1.25rem;margin-bottom:.6rem">Reels y shorts</h2>
+          <p>Píldoras de 60 segundos con trucos de Python, novedades del ecosistema de datos e IA y consejos de carrera.</p>
+          <span class="more">Instagram · TikTok →</span>
+        </a>
+        <a class="card hoverable card-accent" href="/blog/">
+          <span class="card-icon" aria-hidden="true">&#128221;</span>
+          <h2 style="font-size:1.25rem;margin-bottom:.6rem">Blog</h2>
+          <p>Artículos escritos para resolver una pregunta concreta, con fuentes y fecha de actualización.</p>
+          <span class="more">~/blog →</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section id="codigo" style="padding-top:2rem">
+    <div class="section-inner">
+      <p class="section-label">código abierto</p>
+      <h2 class="section-title">Repositorios</h2>
+      <p class="section-desc">
+        Todo el material está en <a href={BRAND.socials.github} rel="noopener" target="_blank">github.com/alwaysindev</a>.
+      </p>
+      <div class="grid">
+        {
+          PROJECTS.map((p) => (
+            <a class="card hoverable reveal" href={p.url} rel="noopener" target="_blank">
+              <span class="meta">{p.language}</span>
+              <h3>{p.name}</h3>
+              <p>{p.description}</p>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+</Base>

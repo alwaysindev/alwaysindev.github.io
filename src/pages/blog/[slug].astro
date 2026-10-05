@@ -1,0 +1,83 @@
+---
+import { render } from 'astro:content';
+import { getPosts } from '../../lib/posts';
+import Base from '../../layouts/Base.astro';
+import { PERSON } from '../../config/site';
+import { abs, blogPostingNode } from '../../lib/schema';
+
+export async function getStaticPaths() {
+  const posts = await getPosts();
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+const { title, description, tldr, pubDate, updatedDate, tags } = post.data;
+const path = `/blog/${post.id}/`;
+const crumbs = [
+  { name: 'Blog', path: '/blog/' },
+  { name: title, path },
+];
+const modified = updatedDate ?? pubDate;
+const fmt = (d: Date) => d.toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' });
+---
+
+<Base
+  title={title}
+  description={description}
+  ogType="article"
+  crumbs={crumbs}
+  dateModified={modified.toISOString()}
+  schema={[blogPostingNode({ url: abs(path), title, description, published: pubDate, modified, tags })]}
+>
+  <Fragment slot="head">
+    <meta property="article:published_time" content={pubDate.toISOString()} />
+    <meta property="article:modified_time" content={modified.toISOString()} />
+    <meta property="article:author" content={abs('/sobre-mi/')} />
+    {tags.map((t) => <meta property="article:tag" content={t} />)}
+  </Fragment>
+
+  <article>
+    <header class="page-head">
+      <div class="section-inner" style="max-width:720px">
+        <nav class="crumbs" aria-label="Migas de pan">
+          <ol>
+            <li><a href="/">Inicio</a></li>
+            <li><a href="/blog/">Blog</a></li>
+          </ol>
+        </nav>
+        <h1 class="page-title" style="font-size:clamp(2rem,4.5vw,3rem)">{title}</h1>
+        <p class="updated">
+          Por <a href="/sobre-mi/" rel="author">{PERSON.shortName}</a> · Publicado
+          <time datetime={pubDate.toISOString()}>{fmt(pubDate)}</time>
+          {
+            updatedDate && (
+              <>
+                {' '}· Actualizado <time datetime={updatedDate.toISOString()}>{fmt(updatedDate)}</time>
+              </>
+            )
+          }
+        </p>
+      </div>
+    </header>
+    <section style="padding-top:1.5rem">
+      <div class="section-inner" style="max-width:720px">
+        <div class="prose">
+          <p class="tldr">{tldr}</p>
+          <Content />
+        </div>
+        <aside class="card" style="margin-top:3.5rem">
+          <span class="meta">// autor</span>
+          <h2 style="font-size:1.15rem;margin-bottom:.5rem">
+            <a href="/sobre-mi/" style="color:inherit">{PERSON.shortName}</a>
+          </h2>
+          <p>{PERSON.tagline} Creador de alwaysInDEV.</p>
+          <div class="btn-row" style="margin-top:1rem">
+            <a class="btn btn-outline" href="/formacion/">Formación</a>
+            <a class="btn btn-outline" href="/charlas/">Charlas</a>
+          </div>
+        </aside>
+      </div>
+    </section>
+  </article>
+</Base>

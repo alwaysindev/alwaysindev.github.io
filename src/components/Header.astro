@@ -1,0 +1,41 @@
+---
+import { NAV } from '../config/site';
+
+interface Props {
+  lang?: 'es' | 'en';
+}
+const { lang = 'es' } = Astro.props;
+const path = Astro.url.pathname;
+---
+
+<header class="site-nav">
+  <div class="nav-inner">
+    <a href="/" class="nav-logo" aria-label="alwaysInDEV, inicio">
+      <span class="muted">./</span><span class="always">always</span><span class="muted">In</span><span class="dev">DEV</span>
+    </a>
+    <nav aria-label={lang === 'en' ? 'Main' : 'Principal'}>
+      <ul class="nav-links">
+        {
+          NAV.map((item) => (
+            <li>
+              <a href={item.href} aria-current={path.startsWith(item.href) ? 'page' : undefined}>
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+        {
+          lang === 'es' ? (
+            <li>
+              <a href="/en/" hreflang="en" lang="en">en</a>
+            </li>
+          ) : (
+            <li>
+              <a href="/" hreflang="es" lang="es">es</a>
+            </li>
+          )
+        }
+      </ul>
+    </nav>
+  </div>
+</header>

@@ -1,0 +1,64 @@
+---
+import Base from '../../layouts/Base.astro';
+import { PERSON, BRAND, PROFILES, EMPLOYER, employerStatus } from '../../config/site';
+import { TALKS } from '../../data/profile';
+
+const status = employerStatus();
+const job =
+  status === 'current'
+    ? `${EMPLOYER.title} at ${EMPLOYER.company}, working on a Generative Engine Optimization (GEO) project for ${EMPLOYER.client}.`
+    : status === 'incoming'
+      ? `Joining ${EMPLOYER.company} as ${EMPLOYER.title} on a Generative Engine Optimization (GEO) project for ${EMPLOYER.client}.`
+      : `${EMPLOYER.previous.title} at ${EMPLOYER.previous.company}.`;
+---
+
+<Base
+  lang="en"
+  title="alwaysInDEV — AI and Data Science content in Spanish"
+  description="alwaysInDEV is a Spanish-language project about AI, Data Science and programming, created by Alejandro Cárabe, AI Engineer and Data Scientist in Madrid."
+  alternates={{ es: '/', en: '/en/' }}
+>
+  <header class="page-head">
+    <div class="section-inner">
+      <p class="section-label">english</p>
+      <h1 class="page-title">alwaysInDEV</h1>
+      <div class="lead">
+        <p>
+          <strong>alwaysInDEV</strong> is a Spanish-language project about AI, Data Science and programming: YouTube
+          videos, training, conference talks and open-source material. The rest of this site is in Spanish.
+        </p>
+      </div>
+    </div>
+  </header>
+
+  <section style="padding-top:1rem">
+    <div class="section-inner">
+      <div class="grid grid-2">
+        <div class="card card-accent">
+          <span class="meta">// creator</span>
+          <h2 style="font-size:1.4rem;margin-bottom:.6rem">{PERSON.name}</h2>
+          <p>
+            AI Engineer and Data Scientist based in Madrid. {job} He teaches Data Science, web scraping and Claude at
+            The Bridge and MBIT School, coordinates a sports data analytics programme for ASE Athletics, and holds the
+            Claude Certified Architect – Foundations certification from Anthropic. He co-founded alwaysInDEV with
+            {' '}{BRAND.cofounder.name}.
+          </p>
+        </div>
+        <div class="card card-accent">
+          <span class="meta">// speaking</span>
+          <h2 style="font-size:1.4rem;margin-bottom:.6rem">Talks and workshops</h2>
+          <p>
+            Topics: web scraping with Scrapy, Generative Engine Optimization (GEO) and Claude Code for data teams. Past
+            events include {TALKS.map((t) => t.event.split(' — ')[0]).join(', ')}. Talks are delivered in Spanish.
+          </p>
+        </div>
+      </div>
+      <div class="btn-row" style="margin-top:2.5rem">
+        <a class="btn btn-primary" href={PROFILES.linkedin} rel="me noopener" target="_blank">Contact on LinkedIn</a>
+        <a class="btn btn-outline" href={PROFILES.sessionize} rel="me noopener" target="_blank">Sessionize</a>
+        <a class="btn btn-outline" href={BRAND.socials.youtube} rel="noopener" target="_blank">YouTube</a>
+        <a class="btn btn-outline" href="/" hreflang="es" lang="es">Versión en español</a>
+      </div>
+    </div>
+  </section>
+</Base>
