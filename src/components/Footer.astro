@@ -1,5 +1,7 @@
 ---
-import { BRAND, PERSON, PROFILES, NAV } from '../config/site';
+import { Image } from 'astro:assets';
+import logo from '../assets/brand/logo-youtube.jpg';
+import { BRAND, PERSON, PROFILES } from '../config/site';
 
 interface Props {
   lang?: 'es' | 'en';
@@ -12,8 +14,9 @@ const en = lang === 'en';
 <footer class="site-footer">
   <div class="footer-inner">
     <div class="footer-about">
-      <a href="/" class="nav-logo" aria-label="alwaysInDEV">
-        <span class="muted">./</span><span class="always">always</span><span class="muted">In</span><span class="dev">DEV</span>
+      <a href="/" class="brand">
+        <Image src={logo} alt="" width={72} height={72} />
+        alwaysInDEV
       </a>
       <p>
         {
@@ -27,9 +30,14 @@ const en = lang === 'en';
     <div>
       <h2>{en ? 'Site' : 'Sitio'}</h2>
       <ul>
-        {NAV.map((n) => <li><a href={n.href}>{n.label}</a></li>)}
-        <li><a href="/prensa/">prensa</a></li>
-        <li><a href="/sobre-este-sitio/">sobre-este-sitio</a></li>
+        <li><a href="/contenido/">Contenido</a></li>
+        <li><a href="/formacion/">Formación</a></li>
+        <li><a href="/charlas/">Charlas</a></li>
+        <li><a href="/sobre-mi/">Sobre mí</a></li>
+        <li><a href="/blog/">Blog</a></li>
+        <li><a href="/contacto/">Contacto</a></li>
+        <li><a href="/prensa/">Prensa</a></li>
+        <li><a href="/sobre-este-sitio/">Sobre este sitio</a></li>
       </ul>
     </div>
     <div>
@@ -44,5 +52,5 @@ const en = lang === 'en';
       </ul>
     </div>
   </div>
-  <p class="footer-copy">© {year} {BRAND.name} · {en ? 'Made with Astro, coffee and the odd bug.' : 'Hecho con Astro, café y algún que otro bug.'}</p>
+  <p class="footer-copy">© {year} {BRAND.name} · {en ? 'Data Science, AI and knowledge in evolution.' : 'Ciencia de Datos, IA y conocimiento en evolución.'}</p>
 </footer>

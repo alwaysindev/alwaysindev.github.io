@@ -23,7 +23,7 @@ export async function GET() {
 - ${employerLine()}
 - Docencia: ${TEACHING.map((t) => `${t.org} (${t.role})`).join('; ')}
 - Certificaciones vigentes: ${CERTIFICATIONS.filter((c) => isActive(c)).map((c) => `${c.name}, ${c.issuer}`).join('; ')}
-- Eventos: ${TALKS.map((t) => t.event.split(' — ')[0]).join(', ')}
+- Eventos: ${[...new Set(TALKS.map((t) => t.event.split(' — ')[0].replace(/ \d{4}$/, '').replace(/ \|.*$/, '')))].join(', ')}
 - Perfiles: ${Object.values(PROFILES).join(' , ')}
 
 ## Páginas

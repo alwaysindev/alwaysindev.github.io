@@ -14,17 +14,25 @@ export interface Experience {
 
 export const EXPERIENCE: Experience[] = [
   {
+    role: 'AI Engineer',
+    org: 'Luce IT',
+    orgUrl: 'https://luceit.com/',
+    start: '2026-10',
+    summary: 'Proyecto de Generative Engine Optimization (GEO) para BBVA.',
+  },
+  {
     role: 'Profesor de Data Analytics y Data Science',
     org: 'The Bridge | Digital Talent Accelerator',
     orgUrl: 'https://thebridge.tech/',
     start: '2026-03',
     summary:
-      'Clases en formato Live Review en el bootcamp online de Data Science e IA y formación en Claude. Coordinador académico B2B de un programa de Data Analytics aplicada al deporte para ASE Athletics.',
+      'Clases en formato Live Review en el bootcamp online de Data Science e IA y formación en Claude. Director académico del programa Sports Data Analytics + Business Intelligence de ASE Athletics, diseñado junto a The Bridge.',
   },
   {
     role: 'Data Scientist',
     org: 'IO Investigación',
     start: '2026-01',
+    end: '2026-10',
   },
   {
     role: 'Profesor de Web Scraping',
@@ -127,9 +135,32 @@ export const TALKS: Talk[] = [
     source: 'https://guild.host/events/navegacin-mapas-y-ms-z4wf80',
     verified: true,
   },
+  {
+    // Título exacto pendiente de confirmar por Alejandro; este es el tema según su publicación.
+    title: 'Cómo entrar a trabajar en el sector tech hoy',
+    event: 'The Bridge | Digital Talent Accelerator',
+    eventUrl: 'https://thebridge.tech/',
+    date: '2026-03-04',
+    city: 'Madrid',
+    venue: 'Sede de The Bridge',
+    summary:
+      'Qué funciona hoy para conseguir el primer trabajo en tecnología en España: el contexto del mercado laboral, cómo buscar oportunidades de forma diferente y experiencias reales de reconversión.',
+    source: 'https://www.linkedin.com/in/alejandro-c%C3%A1rabe-arranz-703119221/recent-activity/all/',
+    verified: true,
+  },
   // TODO(Alejandro): añadir título, fecha y enlace para pasar a `verified: true`.
   { event: 'Nerdearla España', city: 'Madrid', verified: false },
-  { event: 'Commit Conf', city: 'Madrid', verified: false },
+  {
+    title: '¿Ese cron job te odia? Ponle Prefect',
+    event: 'Commit Conf 2026',
+    eventUrl: 'https://2026.commit-conf.com/',
+    date: '2026-06',
+    city: 'Madrid',
+    summary:
+      'Cómo pasar de un script de Python lanzado con cron a un pipeline con observabilidad, reintentos automáticos y alertas, sin cambiar la lógica de negocio ni montar infraestructura pesada como Airflow. Con demo en directo de Prefect.',
+    source: 'https://www.linkedin.com/in/alejandro-c%C3%A1rabe-arranz-703119221/recent-activity/all/',
+    verified: true,
+  },
   { event: 'DataDax Summit', verified: false },
 ];
 
@@ -143,6 +174,14 @@ export interface TalkOffer {
 }
 
 export const TALK_CATALOG: TalkOffer[] = [
+  {
+    title: '¿Ese cron job te odia? Ponle Prefect',
+    abstract:
+      'Del script "artesanal" que corre con cron sin logs ni alertas a un pipeline robusto y monitorizado: observabilidad, reintentos automáticos y alertas con un par de decoradores de Python. Demo en directo con Prefect, sin la complejidad de montar Airflow.',
+    level: 'Intermedio',
+    duration: '30–45 min',
+    formats: ['Charla', 'Taller práctico'],
+  },
   {
     title: 'Scrapy: el arte del web scraping',
     abstract:
@@ -172,8 +211,8 @@ export const TEACHING: Teaching[] = [
   {
     org: 'ASE Athletics (vía The Bridge)',
     orgUrl: 'https://aseathletics.com/',
-    program: 'Programa de Data Analytics aplicada al deporte',
-    role: 'Coordinador académico',
+    program: 'Sports Data Analytics + Business Intelligence',
+    role: 'Director académico',
     since: '2026',
   },
   {
@@ -253,11 +292,11 @@ export const ABOUT_FAQ: Faq[] = [
   },
   {
     q: '¿Dónde da clase?',
-    a: 'En The Bridge (bootcamp de Data Science e IA y formación en Claude), en MBIT School (web scraping en dos másteres) y como coordinador académico de un programa de Data Analytics aplicada al deporte para ASE Athletics.',
+    a: 'En The Bridge (bootcamp de Data Science e IA y formación en Claude), en MBIT School (web scraping en dos másteres) y como director académico del programa Sports Data Analytics + Business Intelligence de ASE Athletics.',
   },
   {
     q: '¿Da charlas o formación para empresas?',
-    a: 'Sí. Ha dado charlas sobre web scraping con Scrapy y diseña formación a medida en Python, SQL, web scraping, IA generativa y Claude. Puedes proponerle una charla o una formación desde la página de contacto.',
+    a: 'Sí. Ha dado charlas sobre web scraping con Scrapy y orquestación de datos con Prefect, y diseña formación a medida en Python, SQL, web scraping, IA generativa y Claude. Puedes proponerle una charla o una formación desde la página de contacto.',
   },
   {
     q: '¿Qué es alwaysInDEV?',

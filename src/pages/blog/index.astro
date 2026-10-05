@@ -23,7 +23,7 @@ const fmt = (d: Date) => d.toLocaleDateString('es-ES', { day: 'numeric', month: 
       <div class="grid grid-2">
         {
           posts.map((p) => (
-            <a class="card hoverable reveal" href={`/blog/${p.id}/`}>
+            <a class="card reveal" href={`/blog/${p.id}/`}>
               <time class="meta" datetime={p.data.pubDate.toISOString()}>{fmt(p.data.pubDate)}</time>
               <h2 style="font-size:1.25rem;margin-bottom:.6rem">{p.data.title}</h2>
               <p>{p.data.description}</p>

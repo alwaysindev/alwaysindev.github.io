@@ -35,10 +35,10 @@ const mailto = (s: string) =>
       <div class="grid">
         {
           reasons.map((r) => (
-            <a class="card hoverable card-accent" href={mailto(r.subject)} rel="noopener" target={PERSON.email ? undefined : '_blank'}>
+            <a class="card card-accent" href={mailto(r.subject)} rel="noopener" target={PERSON.email ? undefined : '_blank'}>
               <h2 style="font-size:1.25rem;margin-bottom:.6rem">{r.title}</h2>
               <p>
-                <strong style="color:var(--text-primary)">Incluye:</strong> {r.text}
+                <strong style="color:var(--text)">Incluye:</strong> {r.text}
               </p>
               <span class="more">{PERSON.email ? 'Escribir email →' : 'Escribir por LinkedIn →'}</span>
             </a>

@@ -39,7 +39,7 @@ const job =
           <h2 style="font-size:1.4rem;margin-bottom:.6rem">{PERSON.name}</h2>
           <p>
             AI Engineer and Data Scientist based in Madrid. {job} He teaches Data Science, web scraping and Claude at
-            The Bridge and MBIT School, coordinates a sports data analytics programme for ASE Athletics, and holds the
+            The Bridge and MBIT School, is Academic Director of the Sports Data Analytics + Business Intelligence programme at ASE Athletics, and holds the
             Claude Certified Architect – Foundations certification from Anthropic. He co-founded alwaysInDEV with
             {' '}{BRAND.cofounder.name}.
           </p>
@@ -48,8 +48,8 @@ const job =
           <span class="meta">// speaking</span>
           <h2 style="font-size:1.4rem;margin-bottom:.6rem">Talks and workshops</h2>
           <p>
-            Topics: web scraping with Scrapy and Data Science with Python. Past
-            events include {TALKS.map((t) => t.event.split(' — ')[0]).join(', ')}. Talks are delivered in Spanish.
+            Topics: web scraping with Scrapy, data orchestration with Prefect and Data Science with Python. Past
+            events include {[...new Set(TALKS.map((t) => t.event.split(' — ')[0].replace(/ \d{4}$/, '').replace(/ \|.*$/, '')))].join(', ')}. Talks are delivered in Spanish.
           </p>
         </div>
       </div>

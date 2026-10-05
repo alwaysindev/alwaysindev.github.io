@@ -6,15 +6,19 @@ import { TALKS, TALK_CATALOG } from '../data/profile';
 import { IDS, eventNodes } from '../lib/schema';
 
 const crumbs = [{ name: 'Charlas', path: '/charlas/' }];
-const verified = TALKS.filter((t) => t.verified);
+const verified = TALKS.filter((t) => t.verified).sort((a, b) => (b.date ?? '').localeCompare(a.date ?? ''));
 const others = TALKS.filter((t) => !t.verified);
+// Las fechas pueden ser solo de mes (AAAA-MM): en ese caso no se inventa el día.
 const fmt = (d: string) =>
-  new Date(d).toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' });
+  new Date(d.length === 7 ? `${d}-15` : d).toLocaleDateString(
+    'es-ES',
+    d.length === 7 ? { month: 'long', year: 'numeric' } : { day: 'numeric', month: 'long', year: 'numeric' },
+  );
 ---
 
 <Base
-  title="Charlas y talleres: web scraping y Data Science"
-  description="Charlas y talleres de Alejandro Cárabe sobre web scraping con Scrapy y Data Science: eventos anteriores, temas y cómo proponer una charla."
+  title="Charlas y talleres: web scraping, Prefect y datos"
+  description="Charlas y talleres de Alejandro Cárabe sobre web scraping con Scrapy y orquestación con Prefect: eventos anteriores, temas y cómo proponer una charla."
   crumbs={crumbs}
   mainEntity={IDS.person}
   schema={eventNodes(TALKS)}
@@ -22,7 +26,7 @@ const fmt = (d: string) =>
   <PageHeader crumbs={crumbs} label="charlas" title="Charlas y talleres">
     <p>
       Charlas técnicas con demo en directo, pensadas para que el público salga sabiendo hacer algo nuevo. He hablado en
-      comunidades y eventos como {TALKS.map((t) => t.event.split(' — ')[0]).join(', ')}.
+      comunidades y eventos como {[...new Set(TALKS.map((t) => t.event.split(' — ')[0].replace(/ \d{4}$/, '').replace(/ \|.*$/, '')))].join(', ')}.
     </p>
   </PageHeader>
 
@@ -87,7 +91,7 @@ const fmt = (d: string) =>
       <p class="section-label">organizadores</p>
       <h2 class="section-title">¿Organizas un evento?</h2>
       <p class="section-desc">
-        Cuéntame la fecha, el formato y el público. Tienes las bios y la información para el programa en el
+        Cuéntame la fecha, el formato y el público. Tienes las bios y la información para el programa en el{' '}
         <a href="/prensa/">kit de prensa</a>, y mis sesiones en <a href={PROFILES.sessionize} rel="me noopener" target="_blank">Sessionize</a>.
       </p>
       <div class="btn-row">

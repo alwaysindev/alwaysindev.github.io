@@ -1,4 +1,6 @@
 ---
+import { Image } from 'astro:assets';
+import logo from '../assets/brand/logo-youtube.jpg';
 import { NAV } from '../config/site';
 
 interface Props {
@@ -6,12 +8,21 @@ interface Props {
 }
 const { lang = 'es' } = Astro.props;
 const path = Astro.url.pathname;
+const LABELS: Record<string, string> = {
+  contenido: 'Contenido',
+  formacion: 'Formación',
+  charlas: 'Charlas',
+  'sobre-mi': 'Sobre mí',
+  blog: 'Blog',
+  contacto: 'Contacto',
+};
 ---
 
 <header class="site-nav">
   <div class="nav-inner">
-    <a href="/" class="nav-logo" aria-label="alwaysInDEV, inicio">
-      <span class="muted">./</span><span class="always">always</span><span class="muted">In</span><span class="dev">DEV</span>
+    <a href="/" class="brand">
+      <Image src={logo} alt="" width={72} height={72} loading="eager" />
+      alwaysInDEV
     </a>
     <nav aria-label={lang === 'en' ? 'Main' : 'Principal'}>
       <ul class="nav-links">
@@ -19,7 +30,7 @@ const path = Astro.url.pathname;
           NAV.map((item) => (
             <li>
               <a href={item.href} aria-current={path.startsWith(item.href) ? 'page' : undefined}>
-                {item.label}
+                {LABELS[item.label] ?? item.label}
               </a>
             </li>
           ))
@@ -27,11 +38,11 @@ const path = Astro.url.pathname;
         {
           lang === 'es' ? (
             <li>
-              <a href="/en/" hreflang="en" lang="en">en</a>
+              <a href="/en/" hreflang="en" lang="en">EN</a>
             </li>
           ) : (
             <li>
-              <a href="/" hreflang="es" lang="es">es</a>
+              <a href="/" hreflang="es" lang="es">ES</a>
             </li>
           )
         }

@@ -1,14 +1,20 @@
 ---
-import { getPosts } from '../lib/posts';
+import { Image } from 'astro:assets';
+import logo from '../assets/brand/logo-youtube.jpg';
 import Base from '../layouts/Base.astro';
-import Terminal from '../components/Terminal.astro';
+import { getPosts } from '../lib/posts';
+import { getVideos } from '../lib/youtube';
 import { BRAND, PERSON, employerLine } from '../config/site';
 import { TALKS, TEACHING, PROJECTS } from '../data/profile';
 
 const posts = (await getPosts()).slice(0, 3);
-
-const scenarios = TALKS.map((t) => t.event.split(' — ')[0]);
+const videos = (await getVideos()).filter((v) => !v.isShort).slice(0, 3);
+const teachingOrgs = TEACHING.map((t) => t.org.split(' ')[0]);
+const scenarios = TALKS.map((t) => t.event.split(' — ')[0].replace(/ \d{4}$/, '')).filter(
+  (e) => !teachingOrgs.some((o) => e.startsWith(o)),
+);
 const fmt = (d: Date) => d.toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' });
+const asOf = new Date(BRAND.youtube.asOf).toLocaleDateString('es-ES', { month: 'long', year: 'numeric' });
 ---
 
 <Base
@@ -18,95 +24,112 @@ const fmt = (d: Date) => d.toLocaleDateString('es-ES', { day: 'numeric', month: 
   alternates={{ es: '/', en: '/en/' }}
 >
   <section class="hero">
-    <div class="hero-glow hero-glow-1" aria-hidden="true"></div>
-    <div class="hero-glow hero-glow-2" aria-hidden="true"></div>
-    <div class="hero-content">
-      <p class="hero-badge"><span class="pulse" aria-hidden="true"></span>Contenido técnico en español</p>
-      <h1 class="hero-title">
-        <span class="line1">Data Science,</span><br />
-        <span class="line2">sin filtros.</span>
-      </h1>
-      <p class="hero-sub">
-        <strong>alwaysInDEV</strong> es un proyecto de divulgación sobre
-        <span class="highlight">IA, Data Science y programación</span> en español: vídeos, formación, charlas y
-        código abierto, creado por <a href="/sobre-mi/">{PERSON.shortName}</a>.
-      </p>
-      <div class="btn-row hero-cta">
-        <a href={BRAND.socials.youtube} class="btn btn-primary" rel="noopener" target="_blank">&#9654; Ver el canal</a>
-        <a href="/formacion/" class="btn btn-outline">Formación para equipos</a>
-        <a href="/charlas/" class="btn btn-outline">Charlas</a>
+    <div class="hero-inner">
+      <div class="hero-text">
+        <p class="hero-badge">Canal de YouTube · Formación · Charlas</p>
+        <h1 class="hero-title">
+          Ciencia de Datos e IA,<br /><span class="grad-text">explicadas en español.</span>
+        </h1>
+        <p class="hero-sub">
+          <strong>alwaysInDEV</strong> es un proyecto de divulgación sobre IA, Data Science y programación: vídeos,
+          formación para equipos, charlas y código abierto. Lo creó{' '}
+          <a href="/sobre-mi/">{PERSON.shortName}</a>.
+        </p>
+        <div class="btn-row">
+          <a href={BRAND.socials.youtube} class="btn btn-primary" rel="noopener" target="_blank">&#9654; Ver el canal</a>
+          <a href="/formacion/" class="btn btn-outline">Formación para equipos</a>
+        </div>
+        <ul class="stats" aria-label={`Datos del canal a ${asOf}`}>
+          <li><strong>{BRAND.youtube.subscribers}</strong> suscriptores</li>
+          <li><strong>{BRAND.youtube.videos}</strong> vídeos</li>
+          <li><strong>{PROJECTS.length}</strong> repos abiertos</li>
+        </ul>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <div class="logo-tile">
+          <Image src={logo} alt="" width={360} height={360} loading="eager" fetchpriority="high" />
+        </div>
       </div>
     </div>
   </section>
 
-  <div class="terminal-section">
-    <Terminal
-      lines={[
-        { cmd: 'cat about.yaml' },
-        { out: 'proyecto: alwaysInDEV  # IA · Data Science · programación' },
-        { out: `creador: ${PERSON.shortName.toLowerCase().replace(' ', '_')}` },
-        { cmd: 'cat --stack temas.yaml' },
-        { out: 'python · sql · llms · claude · geo · web_scraping · ml' },
-        { cmd: 'echo "¿Nos vemos en el próximo vídeo?"' },
-        { out: '¿Nos vemos en el próximo vídeo?' },
-      ]}
-    />
-  </div>
-
-  <div class="separator"></div>
+  {
+    videos.length > 0 && (
+      <section class="section-soft" id="videos">
+        <div class="section-inner">
+          <p class="section-label">En el canal</p>
+          <h2 class="section-title">Últimos vídeos</h2>
+          <div class="grid">
+            {videos.map((v) => (
+              <a class="card video reveal" href={v.url} rel="noopener" target="_blank">
+                <img src={v.thumb} alt="" width="320" height="180" loading="lazy" decoding="async" />
+                <time class="meta" datetime={v.published.toISOString()}>
+                  {fmt(v.published)}
+                </time>
+                <h3>{v.title}</h3>
+              </a>
+            ))}
+          </div>
+          <div class="btn-row" style="margin-top:2rem">
+            <a class="btn btn-outline" href={BRAND.socials.youtube} rel="noopener" target="_blank">
+              Ver todos los vídeos
+            </a>
+          </div>
+        </div>
+      </section>
+    )
+  }
 
   <section id="que-es">
     <div class="section-inner">
-      <p class="section-label">qué es</p>
+      <p class="section-label">Qué es</p>
       <h2 class="section-title">¿Qué es alwaysInDEV?</h2>
       <p class="section-desc">
         Es el contenido técnico que nos habría gustado encontrar cuando empezamos: práctico, en español y sin relleno.
         Nace en YouTube y hoy incluye formación para equipos, charlas en eventos y repositorios abiertos.
       </p>
       <div class="grid">
-        <a class="card hoverable reveal" href="/contenido/">
+        <a class="card reveal" href="/contenido/">
           <span class="card-icon" aria-hidden="true">&#127909;</span>
           <h3>Vídeos y píldoras</h3>
-          <p>Tutoriales largos en YouTube y píldoras de 60 segundos sobre Python, Data Science, LLMs y herramientas.</p>
-          <span class="more">~/contenido →</span>
+          <p>Tutoriales largos en YouTube y píldoras cortas sobre Python, Data Science, LLMs y herramientas.</p>
+          <span class="more">Ver contenido →</span>
         </a>
-        <a class="card hoverable reveal" href="/formacion/">
+        <a class="card reveal" href="/formacion/">
           <span class="card-icon" aria-hidden="true">&#127891;</span>
           <h3>Formación</h3>
           <p>Bootcamps, másteres y formación a medida en Data Science, web scraping, IA generativa y Claude.</p>
-          <span class="more">~/formacion →</span>
+          <span class="more">Ver formación →</span>
         </a>
-        <a class="card hoverable reveal" href="/charlas/">
+        <a class="card reveal" href="/charlas/">
           <span class="card-icon" aria-hidden="true">&#127908;</span>
           <h3>Charlas</h3>
-          <p>Charlas técnicas y talleres sobre web scraping y Data Science para eventos y comunidades.</p>
-          <span class="more">~/charlas →</span>
+          <p>Charlas técnicas y talleres sobre web scraping, orquestación con Prefect y Data Science.</p>
+          <span class="more">Ver charlas →</span>
         </a>
-        <a class="card hoverable reveal" href="/contenido/#codigo">
+        <a class="card reveal" href="/contenido/#codigo">
           <span class="card-icon" aria-hidden="true">&#128187;</span>
           <h3>Código abierto</h3>
           <p>{PROJECTS.length} repositorios públicos con el material de los cursos y vídeos, listos para practicar.</p>
-          <span class="more">~/contenido#codigo →</span>
+          <span class="more">Ver repos →</span>
         </a>
       </div>
     </div>
   </section>
 
-  <div class="separator"></div>
-
-  <section id="quien">
+  <section class="section-soft" id="quien">
     <div class="section-inner">
-      <p class="section-label">quién está detrás</p>
+      <p class="section-label">Quién está detrás</p>
       <div class="profile">
         <div class="avatar" aria-hidden="true">
-          {PERSON.headshot ? <img src={PERSON.headshot} alt="" width="96" height="96" /> : PERSON.initials}
+          {PERSON.headshot ? <img src={PERSON.headshot} alt="" width="104" height="104" /> : PERSON.initials}
         </div>
         <div>
           <h2 class="section-title">{PERSON.shortName}</h2>
-          <p class="lead" style="margin-bottom:1rem">
-            AI Engineer y Data Scientist en {PERSON.city}. {employerLine()} Forma en Data Science, web scraping y Claude
-            en The Bridge y MBIT School, y está certificado como <strong>Claude Certified Architect – Foundations</strong>.
-            Cofundó alwaysInDEV con {BRAND.cofounder.name}.
+          <p class="lead" style="margin-bottom:1.25rem">
+            {employerLine()} Forma en Data Science, web scraping y Claude en The Bridge y MBIT School, dirige el
+            programa académico de Sports Data Analytics de ASE Athletics y está certificado como{' '}
+            <strong>Claude Certified Architect – Foundations</strong>. Cofundó alwaysInDEV con {BRAND.cofounder.name}.
           </p>
           <a class="btn btn-outline" href="/sobre-mi/">Sobre mí →</a>
         </div>
@@ -114,17 +137,15 @@ const fmt = (d: Date) => d.toLocaleDateString('es-ES', { day: 'numeric', month: 
     </div>
   </section>
 
-  <div class="separator"></div>
-
   <section id="donde">
     <div class="section-inner">
-      <p class="section-label">dónde</p>
+      <p class="section-label">Dónde</p>
       <h2 class="section-title">Aulas y escenarios</h2>
       <p class="section-desc">Formación y charlas en escuelas, empresas y eventos técnicos.</p>
       <ul class="tags" aria-label="Centros de formación">
         {TEACHING.map((t) => <li class="tag">{t.org}</li>)}
       </ul>
-      <ul class="tags" aria-label="Eventos" style="margin-top:0.8rem">
+      <ul class="tags" aria-label="Eventos" style="margin-top:0.6rem">
         {scenarios.map((s) => <li class="tag">{s}</li>)}
       </ul>
     </div>
@@ -132,35 +153,31 @@ const fmt = (d: Date) => d.toLocaleDateString('es-ES', { day: 'numeric', month: 
 
   {
     posts.length > 0 && (
-      <>
-        <div class="separator" />
-        <section id="blog">
-          <div class="section-inner">
-            <p class="section-label">blog</p>
-            <h2 class="section-title">Últimos artículos</h2>
-            <div class="grid">
-              {posts.map((p) => (
-                <a class="card hoverable reveal" href={`/blog/${p.id}/`}>
-                  <time class="meta" datetime={p.data.pubDate.toISOString()}>{fmt(p.data.pubDate)}</time>
-                  <h3>{p.data.title}</h3>
-                  <p>{p.data.description}</p>
-                  <span class="more">Leer →</span>
-                </a>
-              ))}
-            </div>
+      <section class="section-soft" id="blog">
+        <div class="section-inner">
+          <p class="section-label">Blog</p>
+          <h2 class="section-title">Últimos artículos</h2>
+          <div class="grid">
+            {posts.map((p) => (
+              <a class="card reveal" href={`/blog/${p.id}/`}>
+                <time class="meta" datetime={p.data.pubDate.toISOString()}>
+                  {fmt(p.data.pubDate)}
+                </time>
+                <h3>{p.data.title}</h3>
+                <p>{p.data.description}</p>
+                <span class="more">Leer →</span>
+              </a>
+            ))}
           </div>
-        </section>
-      </>
+        </div>
+      </section>
     )
   }
 
-  <div class="separator"></div>
-
-  <section class="cta-section">
-    <div class="section-inner" style="text-align:center">
-      <p class="section-label">conecta</p>
+  <section class="cta">
+    <div class="section-inner cta-box">
       <h2 class="section-title">¿Hablamos?</h2>
-      <p class="section-desc" style="margin:0 auto 2rem">
+      <p class="section-desc">
         Para formación, charlas o colaboraciones, escríbeme. Para aprender, el canal es el mejor sitio para empezar.
       </p>
       <div class="btn-row" style="justify-content:center">
@@ -174,114 +191,145 @@ const fmt = (d: Date) => d.toLocaleDateString('es-ES', { day: 'numeric', month: 
 
 <style>
   .hero {
+    padding: 4.5rem 1.5rem 5rem;
     position: relative;
-    min-height: 92vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 9rem 2rem 4rem;
+    overflow: hidden;
   }
-  .hero-glow {
+  .hero::before {
+    content: '';
     position: absolute;
-    width: 600px;
-    height: 600px;
-    max-width: 100vw;
+    top: -220px;
+    left: -180px;
+    width: 640px;
+    height: 640px;
     border-radius: 50%;
-    filter: blur(150px);
-    opacity: 0.4;
+    background: radial-gradient(circle, rgba(139, 79, 176, 0.12), transparent 65%);
     pointer-events: none;
   }
-  .hero-glow-1 {
-    top: 10%;
-    left: 15%;
-    background: radial-gradient(circle, rgba(74, 222, 128, 0.15), transparent);
-  }
-  .hero-glow-2 {
-    bottom: 10%;
-    right: 10%;
-    background: radial-gradient(circle, rgba(34, 211, 238, 0.1), transparent);
-  }
-  .hero-content {
-    max-width: 900px;
-    text-align: center;
+  .hero-inner {
+    max-width: var(--maxw);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.6fr 1fr;
+    gap: 3rem;
+    align-items: center;
     position: relative;
-    z-index: 2;
   }
   .hero-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.4rem 1rem;
+    display: inline-block;
+    padding: 0.35rem 0.9rem;
+    border-radius: 999px;
+    background: var(--surface);
     border: 1px solid var(--border);
-    border-radius: 100px;
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    color: var(--text-secondary);
-    margin-bottom: 2.5rem;
-    background: var(--bg-secondary);
-    animation: fadeInDown 0.8s ease-out;
-  }
-  .pulse {
-    width: 8px;
-    height: 8px;
-    background: var(--accent-green);
-    border-radius: 50%;
-    animation: pulse 2s infinite;
-  }
-  @keyframes pulse {
-    0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.4); }
-    50% { opacity: 0.8; box-shadow: 0 0 0 8px rgba(74, 222, 128, 0); }
-  }
-  /* Sin animación de opacidad en el h1: es el elemento LCP y debe pintarse ya. */
-  .hero-title {
-    font-size: clamp(2.8rem, 7vw, 5.5rem);
-    font-weight: 800;
-    line-height: 1.05;
-    letter-spacing: -3px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--purple-ink);
     margin-bottom: 1.5rem;
   }
-  .line2 {
-    background: linear-gradient(135deg, var(--accent-green), var(--accent-cyan));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+  .hero-title {
+    font-size: clamp(2.2rem, 4.4vw, 3.4rem);
+    text-wrap: balance;
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.035em;
+    margin-bottom: 1.4rem;
   }
   .hero-sub {
-    font-family: var(--font-mono);
-    font-size: 1rem;
-    color: var(--text-secondary);
-    max-width: 640px;
-    margin: 0 auto 3rem;
-    line-height: 1.8;
+    font-size: 1.15rem;
+    color: var(--text-2);
+    max-width: 580px;
+    margin-bottom: 2rem;
   }
   .hero-sub strong {
-    color: var(--text-primary);
+    color: var(--text);
   }
-  .hero-sub .highlight {
-    color: var(--accent-green);
+  .stats {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.8rem;
+    margin-top: 2.2rem;
+    color: var(--muted);
+    font-size: 0.95rem;
   }
-  .hero-sub a {
-    color: var(--accent-cyan);
+  .stats strong {
+    display: block;
+    font-family: var(--font-head);
+    font-size: 1.7rem;
+    color: var(--text);
+    line-height: 1.1;
   }
-  .hero-cta {
+  .hero-art {
+    display: flex;
     justify-content: center;
-    animation: fadeInUp 0.8s ease-out 0.3s both;
   }
-  .terminal-section {
+  .logo-tile {
+    width: min(360px, 100%);
+    aspect-ratio: 1;
+    border-radius: 48px;
+    overflow: hidden;
+    box-shadow:
+      0 30px 80px rgba(229, 0, 85, 0.22),
+      0 10px 30px rgba(139, 79, 176, 0.2);
+    transform: rotate(-3deg);
+  }
+  .logo-tile img {
+    width: 100%;
+    height: 100%;
+  }
+  .video {
+    padding: 0.75rem 0.75rem 1.25rem;
+  }
+  .video img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    border-radius: 12px;
+    margin-bottom: 0.9rem;
+  }
+  .video .meta,
+  .video h3 {
+    padding: 0 0.5rem;
+  }
+  .video h3 {
+    font-size: 1.05rem;
+  }
+  .cta-box {
+    text-align: center;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 28px;
+    padding: 3.5rem 1.5rem;
+    box-shadow: var(--shadow);
     position: relative;
-    z-index: 1;
-    padding: 0 2rem 6rem;
+    overflow: hidden;
   }
-  @media (max-width: 860px) {
+  .cta-box::before {
+    content: '';
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 4px;
+    background: var(--aid-grad);
+  }
+  .cta-box .section-desc {
+    margin: 0 auto 2rem;
+  }
+  @media (max-width: 900px) {
     .hero {
-      padding: 9rem 1rem 3rem;
-      min-height: auto;
+      padding: 2.5rem 1rem 3rem;
     }
-    .hero-title {
-      letter-spacing: -1.5px;
+    .hero-inner {
+      grid-template-columns: 1fr;
+      gap: 2rem;
     }
-    .terminal-section {
-      padding: 0 1rem 4rem;
+    .hero-art {
+      order: -1;
+      justify-content: flex-start;
+    }
+    .logo-tile {
+      width: 120px;
+      border-radius: 28px;
     }
   }
 </style>
