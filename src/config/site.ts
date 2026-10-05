@@ -67,7 +67,7 @@ export const EMPLOYER = {
   companyUrl: 'https://luceit.com/',
   client: 'BBVA',
   project: 'un proyecto de Generative Engine Optimization (GEO)',
-  startDate: null as string | null, // 'AAAA-MM-DD'
+  startDate: '2026-10' as string | null, // 'AAAA-MM' o 'AAAA-MM-DD'
   previous: { title: 'Data Scientist', company: 'IO Investigación' },
 } as const;
 
@@ -100,8 +100,15 @@ export const BRAND = {
   name: 'alwaysInDEV',
   description:
     'Proyecto de divulgación técnica en español sobre IA, Data Science y programación: vídeos, formación, charlas y código abierto.',
-  tagline: 'Data Science, sin filtros.',
+  tagline: 'Ciencia de Datos, IA y conocimiento en evolución.',
   cofounder: { name: 'David Amorín', role: 'Cofundador del canal' },
+  /** Datos del canal comprobados a mano en youtube.com/@InDevAlways (fecha en `asOf`). */
+  youtube: {
+    channelId: 'UCxR0X8bZSxANC4gYI1xhVCg',
+    subscribers: '4,98 K',
+    videos: 255,
+    asOf: '2026-10-05',
+  },
   socials: {
     youtube: 'https://www.youtube.com/@InDevAlways',
     github: 'https://github.com/alwaysindev',

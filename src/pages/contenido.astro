@@ -42,19 +42,19 @@ const itemList = {
   <section style="padding-top:2rem">
     <div class="section-inner">
       <div class="grid">
-        <a class="card hoverable card-accent" href={BRAND.socials.youtube} rel="noopener" target="_blank">
+        <a class="card card-accent" href={BRAND.socials.youtube} rel="noopener" target="_blank">
           <span class="card-icon" aria-hidden="true">&#127909;</span>
           <h2 style="font-size:1.25rem;margin-bottom:.6rem">YouTube</h2>
           <p>Vídeos largos y tutoriales paso a paso sobre Python, Data Science, IA generativa y herramientas como Claude Code.</p>
           <span class="more">youtube.com/@InDevAlways →</span>
         </a>
-        <a class="card hoverable card-accent" href={BRAND.socials.instagram} rel="noopener" target="_blank">
+        <a class="card card-accent" href={BRAND.socials.instagram} rel="noopener" target="_blank">
           <span class="card-icon" aria-hidden="true">&#9889;</span>
           <h2 style="font-size:1.25rem;margin-bottom:.6rem">Reels y shorts</h2>
           <p>Píldoras de 60 segundos con trucos de Python, novedades del ecosistema de datos e IA y consejos de carrera.</p>
           <span class="more">Instagram · TikTok →</span>
         </a>
-        <a class="card hoverable card-accent" href="/blog/">
+        <a class="card card-accent" href="/blog/">
           <span class="card-icon" aria-hidden="true">&#128221;</span>
           <h2 style="font-size:1.25rem;margin-bottom:.6rem">Blog</h2>
           <p>Artículos escritos para resolver una pregunta concreta, con fuentes y fecha de actualización.</p>
@@ -74,7 +74,7 @@ const itemList = {
       <div class="grid">
         {
           PROJECTS.map((p) => (
-            <a class="card hoverable reveal" href={p.url} rel="noopener" target="_blank">
+            <a class="card reveal" href={p.url} rel="noopener" target="_blank">
               <span class="meta">{p.language}</span>
               <h3>{p.name}</h3>
               <p>{p.description}</p>

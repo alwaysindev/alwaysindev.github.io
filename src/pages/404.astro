@@ -1,6 +1,5 @@
 ---
 import Base from '../layouts/Base.astro';
-import Terminal from '../components/Terminal.astro';
 ---
 
 <Base
@@ -8,17 +7,15 @@ import Terminal from '../components/Terminal.astro';
   description="Esta página no existe en alwaysInDEV. Vuelve al inicio o visita el contenido, la formación, las charlas o el blog del proyecto."
   noindex
 >
-  <section style="padding-top:9rem;text-align:center">
+  <section style="padding-top:6rem;padding-bottom:7rem;text-align:center">
     <div class="section-inner">
-      <p class="section-label">error 404</p>
-      <h1 class="page-title">Esta ruta no existe</h1>
-      <div style="margin:2rem 0 2.5rem">
-        <Terminal title="~/ — bash" lines={[{ cmd: 'cd ruta-que-buscabas' }, { out: 'bash: cd: ruta-que-buscabas: No such file or directory' }]} />
-      </div>
+      <p class="section-label">Error 404</p>
+      <h1 class="page-title">Esta página <span class="grad-text">no existe</span></h1>
+      <p class="lead" style="margin:0 auto 2.5rem">Puede que el enlace esté mal o que la página se haya movido.</p>
       <div class="btn-row" style="justify-content:center">
         <a class="btn btn-primary" href="/">Volver al inicio</a>
-        <a class="btn btn-outline" href="/blog/">Blog</a>
         <a class="btn btn-outline" href="/contenido/">Contenido</a>
+        <a class="btn btn-outline" href="/blog/">Blog</a>
       </div>
     </div>
   </section>
