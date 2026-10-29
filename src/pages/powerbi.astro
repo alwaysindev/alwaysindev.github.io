@@ -1,0 +1,305 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import ventas from '../assets/powerbi/ventas.png';
+import rentabilidad from '../assets/powerbi/rentabilidad.png';
+import stock from '../assets/powerbi/stock.png';
+
+// Landing del servicio de paneles en Power BI (campaña de captación de David Amorín).
+// No aparece en el menú: se enlaza desde los emails y desde Apollo.
+---
+
+<Base
+  title="Panel de ventas, margen y stock en Power BI"
+  description="Convertimos los datos de tu programa de gestión y tus Excel en un panel con tus ventas, márgenes y stock, siempre al día. Para fabricantes y distribuidores."
+>
+  <div class="pbi">
+  <!-- 1. Cabecera -->
+  <section class="hero">
+    <div class="wrap">
+      <div>
+        <span class="chip">Ventas · Márgenes · Stock · Con Power BI de Microsoft</span>
+        <h1>Tus datos ya los tienes. <span class="grad">Ahora toca entenderlos.</span></h1>
+        <p class="lead">Juntamos lo que ya tienes en tu programa de gestión y en tus Excel en un único panel, fácil de leer y que se actualiza solo. Antes de empezar te decimos qué incluye, cuánto cuesta y cuándo lo tendrás. Para fabricantes y distribuidores de 20 a 200 empleados.</p>
+        <a class="btn primary" href="mailto:dam@alwaysindev.es?subject=Diagn%C3%B3stico%20Power%20BI" data-booking>Reservar diagnóstico gratuito</a>
+        <a class="btn ghost second" href="#demo">Ver un ejemplo</a>
+        <div class="stats">
+          <div><b>Semanas</b><span>no meses</span></div>
+          <div><b>3 páginas</b><span>ventas, margen y stock</span></div>
+          <div><b>0 €</b><span>diagnóstico inicial</span></div>
+        </div>
+      </div>
+      <div class="mock-card">
+        <!-- Dibujo ilustrativo; las capturas reales están en img/ -->
+        <svg viewBox="0 0 520 330" role="img" aria-label="Ejemplo de panel de ventas frente a objetivo">
+          <defs><linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#9b3fb8"/><stop offset="1" stop-color="#e3175f"/></linearGradient></defs>
+          <text x="4" y="22" font-family="Space Grotesk Variable, Space Grotesk, sans-serif" font-size="17" font-weight="700" fill="#17121c">Ventas vs objetivo · 2026</text>
+          <g font-family="Inter Variable, Inter, sans-serif" font-size="12" fill="#5d5566">
+            <rect x="4" y="40" width="160" height="70" rx="12" fill="#f5f1f6"/>
+            <text x="18" y="64">Ventas netas</text><text x="18" y="94" font-size="22" font-weight="700" fill="#17121c">4,52 M€</text>
+            <rect x="180" y="40" width="160" height="70" rx="12" fill="#f5f1f6"/>
+            <text x="194" y="64">Cumplimiento</text><text x="194" y="94" font-size="22" font-weight="700" fill="#c0135a">98,4 %</text>
+            <rect x="356" y="40" width="160" height="70" rx="12" fill="#f5f1f6"/>
+            <text x="370" y="64">Margen</text><text x="370" y="94" font-size="22" font-weight="700" fill="#17121c">11,6 %</text>
+          </g>
+          <line x1="4" y1="300" x2="516" y2="300" stroke="#ebe4ee"/>
+          <g fill="url(#g)">
+            <rect x="22" y="215" width="34" height="85" rx="6"/><rect x="84" y="192" width="34" height="108" rx="6"/>
+            <rect x="146" y="200" width="34" height="100" rx="6"/><rect x="208" y="168" width="34" height="132" rx="6"/>
+            <rect x="270" y="158" width="34" height="142" rx="6"/><rect x="332" y="140" width="34" height="160" rx="6"/>
+            <rect x="394" y="150" width="34" height="150" rx="6"/><rect x="456" y="178" width="34" height="122" rx="6" opacity="0.35"/>
+          </g>
+          <polyline points="39,206 101,198 163,194 225,176 287,163 349,148 411,154 473,168" fill="none" stroke="#17121c" stroke-width="2" stroke-dasharray="5 5"/>
+          <text x="4" y="322" font-family="Inter Variable, Inter, sans-serif" font-size="11" fill="#5d5566">Datos de ejemplo · línea discontinua = objetivo</text>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. El problema -->
+  <section class="alt">
+    <div class="wrap">
+      <p class="eyebrow">El problema</p>
+      <h2>Tienes los datos. Lo que no tienes es tiempo para mirarlos.</h2>
+      <div class="cards">
+        <div class="card"><span class="icon">⏳</span><h3>Cifras que llegan tarde</h3><p>La información está en el programa de facturación, pero el informe llega días después y cada departamento tiene su propia versión.</p></div>
+        <div class="card"><span class="icon">📋</span><h3>Horas de copiar y pegar</h3><p>Alguien pierde varias horas cada semana sacando datos y cuadrando hojas de cálculo.</p></div>
+        <div class="card"><span class="icon">❓</span><h3>Preguntas sin respuesta</h3><p>¿Qué cliente o qué producto deja margen de verdad? Saberlo cuesta días, no segundos.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. La solución -->
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">La solución</p>
+      <h2>Las cifras que miras cada semana, en una sola pantalla y siempre al día</h2>
+      <div class="cards">
+        <div class="card"><span class="icon">🎯</span><h3>Ventas frente a objetivo</h3><p>Por zona, comercial y canal, y comparadas con el año anterior.</p></div>
+        <div class="card"><span class="icon">💶</span><h3>Margen real</h3><p>Lo que de verdad ganas con cada cliente y cada producto, después de descuentos y devoluciones.</p></div>
+        <div class="card"><span class="icon">📦</span><h3>Stock bajo control</h3><p>Cuánto stock tienes, cuánto dinero hay parado en el almacén y qué productos están a punto de agotarse.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. Cómo funciona -->
+  <section class="alt" id="como-funciona">
+    <div class="wrap">
+      <p class="eyebrow">Cómo funciona</p>
+      <h2>Tres pasos, sin sorpresas</h2>
+      <div class="cards">
+        <div class="card"><span class="step-n">1</span><h3>Diagnóstico gratuito</h3><p>30 minutos para ver tus datos y qué necesitas controlar. Sales con alcance, plazo y precio por escrito.</p></div>
+        <div class="card"><span class="step-n">2</span><h3>Construcción</h3><p>Nos encargamos de toda la parte técnica: recogemos tus datos y montamos el panel, con una revisión contigo a mitad de camino.</p></div>
+        <div class="card"><span class="step-n">3</span><h3>Entrega y formación</h3><p>Listo para usar desde el ordenador o el móvil, con 1 hora de formación para tu equipo.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. Demo -->
+  <section id="demo">
+    <div class="wrap">
+      <h2>Así se ve con los datos de un distribuidor</h2>
+      <div class="viewer">
+        <div class="vtabs" role="tablist">
+          <button class="on" data-i="0" role="tab">Ventas vs objetivo</button>
+          <button data-i="1" role="tab">Rentabilidad</button>
+          <button data-i="2" role="tab">Stock</button>
+        </div>
+        <figure class="card vshot">
+          <Image src={ventas} widths={[800, 1280, 2560]} sizes="(max-width: 1170px) 100vw, 1100px" alt="Panel de ventas frente a objetivo, por mes y por zona" data-cap="Cómo vas frente al objetivo cada mes y en cada zona, comparado con el año anterior." />
+          <Image src={rentabilidad} widths={[800, 1280, 2560]} sizes="(max-width: 1170px) 100vw, 1100px" alt="Panel de rentabilidad por cliente y categoría" data-cap="Qué clientes y productos dejan margen de verdad, después de descuentos y devoluciones." hidden />
+          <Image src={stock} widths={[800, 1280, 2560]} sizes="(max-width: 1170px) 100vw, 1100px" alt="Panel de stock con productos por debajo del mínimo" data-cap="Cuánto dinero hay en el almacén y qué productos están a punto de agotarse." hidden />
+          <figcaption>Cómo vas frente al objetivo cada mes y en cada zona, comparado con el año anterior.</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. Precio -->
+  <section class="alt" id="precio">
+    <div class="wrap">
+      <p class="eyebrow">Precio</p>
+      <h2>Precio claro desde el principio</h2>
+      <div class="prices">
+        <div class="card featured">
+          <h3>Panel de control</h3>
+          <div class="price">Desde 1.500 € <small>pago único</small></div>
+          <ul>
+            <li>Conexión a tu programa de gestión o tus Excel</li>
+            <li>3 páginas: ventas, margen y stock (o las que elijas)</li>
+            <li>Se actualiza solo, sin copiar ni pegar</li>
+            <li>1 hora de formación</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Mantenimiento</h3>
+          <div class="price">Desde 200 € <small>/ mes</small></div>
+          <ul>
+            <li>Cambios y nuevos indicadores</li>
+            <li>Soporte por email</li>
+            <li>Sin permanencia</li>
+          </ul>
+        </div>
+      </div>
+      <p class="note">Precios sin IVA. El precio y el plazo exactos dependen de cuántos programas y archivos haya que conectar, y se fijan por escrito tras el diagnóstico.</p>
+    </div>
+  </section>
+
+  <!-- 7. Quién está detrás -->
+  <section>
+    <div class="wrap">
+      <p class="eyebrow">Quién está detrás</p>
+      <div class="who">
+        <div class="avatar">DA</div>
+        <div>
+          <h2>David Amorín García</h2>
+          <p class="eyebrow" style="letter-spacing:0.08em">Científico y analista de datos · Especialista en Power BI</p>
+          <p class="lead">Desde 2023 trabajo en consultoría de datos para grandes empresas de energía, consumo, farmacéutica y retail. Mi día a día es justo lo que haríamos juntos: reunir la información de sus programas de gestión y sus Excel, ordenarla y convertirla en paneles de Power BI que usan sus directivos para decidir.</p>
+          <p class="lead">Desde 2020 también ayudo a pequeñas y medianas empresas a medir sus resultados con herramientas de analítica. Sé lo que necesita una empresa mediana: cifras claras, rápido y sin proyectos eternos.</p>
+          <p class="lead" style="margin-bottom:0">Tengo cuatro certificaciones oficiales de Microsoft y Databricks, las empresas que crean las herramientas con las que trabajo, y soy cofundador de <a href="/">alwaysInDEV</a>, un proyecto de divulgación y formación sobre datos e inteligencia artificial.</p>
+          <div class="stats" style="margin-top:28px">
+            <div><b>+3 años</b><span>en consultoría de datos</span></div>
+            <div><b>Power BI</b><span>herramienta de trabajo diaria</span></div>
+            <div><b>4 certificaciones</b><span>oficiales de Microsoft y Databricks</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. Preguntas frecuentes -->
+  <section class="alt" id="faq">
+    <div class="wrap" style="max-width:820px">
+      <p class="eyebrow">Preguntas frecuentes</p>
+      <h2>Lo que suelen preguntarnos</h2>
+      <details><summary>¿Funciona con el programa que ya usamos?</summary><p>Casi seguro que sí. Trabajamos con los programas de gestión y facturación más habituales (Sage, A3, Odoo, Holded, Business Central, SAP…) y con hojas de Excel. No tienes que cambiar nada de lo que ya usas.</p></details>
+      <details><summary>¿Cuánto se tarda?</summary><p>Depende de cuántos programas y archivos haya que conectar, de cuánta información haya y de lo ordenada que esté. Un primer panel suele estar en pocas semanas, y en el diagnóstico te damos un plazo concreto por escrito.</p></details>
+      <details><summary>¿Qué es Power BI y tengo que pagar algo más?</summary><p>Power BI es la herramienta de Microsoft con la que construimos el panel. Para que varias personas lo consulten, cada una necesita una licencia de Microsoft (unos 14 € al mes por persona). Te ayudamos a elegir la opción más económica.</p></details>
+      <details><summary>¿Qué pasa con mis datos?</summary><p>Antes de empezar firmamos un acuerdo de confidencialidad y de protección de datos. Tu información se queda en tu propia cuenta de Microsoft.</p></details>
+      <details><summary>¿Y si luego quiero más?</summary><p>Se añaden páginas o áreas nuevas (compras, RRHH, previsiones) con su propio presupuesto.</p></details>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="wrap">
+      <p class="eyebrow">Hablemos</p>
+      <h2>¿Vemos tus datos en 30 minutos?</h2>
+      <p class="lead">Sin compromiso. Te digo qué se puede ver, en cuánto tiempo y a qué precio.</p>
+      <a class="btn primary" href="mailto:dam@alwaysindev.es?subject=Diagn%C3%B3stico%20Power%20BI" data-booking>Reservar diagnóstico gratuito</a>
+    </div>
+  </section>
+
+  <!-- 9. Otros servicios -->
+  <section class="alt" id="servicios">
+    <div class="wrap">
+      <p class="eyebrow">Otros servicios</p>
+      <h2>Y si necesitas algo más, también te ayudamos</h2>
+      <p class="lead">Contamos con profesionales de confianza para otras necesidades de tu empresa.</p>
+      <div class="cards four">
+        <div class="card"><span class="icon">⚙️</span><h3>Automatización</h3><p>Que las tareas repetitivas se hagan solas: avisos, informes, copiar datos entre programas.</p></div>
+        <div class="card"><span class="icon">🤖</span><h3>Inteligencia artificial</h3><p>Asistentes que responden a clientes, leen documentos o te ayudan en el día a día.</p></div>
+        <div class="card"><span class="icon">📈</span><h3>Previsiones</h3><p>Anticipar ventas, pedidos o stock a partir de tu propio histórico.</p></div>
+        <div class="card"><span class="icon">🔎</span><h3>SEO</h3><p>Que tus clientes te encuentren en Google cuando buscan lo que vendes.</p></div>
+        <div class="card"><span class="icon">📣</span><h3>Marketing digital</h3><p>Campañas, redes sociales y email para conseguir más clientes.</p></div>
+        <div class="card"><span class="icon">🎬</span><h3>Contenido audiovisual</h3><p>Vídeos para tu web, redes o YouTube, del guion a la edición.</p></div>
+        <div class="card"><span class="icon">💻</span><h3>Páginas web</h3><p>Webs y páginas de producto claras, rápidas y fáciles de mantener.</p></div>
+        <div class="card"><span class="icon">🎓</span><h3>Formación</h3><p>Cursos prácticos para que tu equipo saque partido a Excel, Power BI y la IA.</p></div>
+      </div>
+      <p style="margin-top:28px">¿Te interesa alguno? <a href="mailto:dam@alwaysindev.es?subject=Otros%20servicios">Escríbenos y te contamos</a>.</p>
+    </div>
+  </section>
+
+  </div>
+</Base>
+
+<script is:inline>
+// Pega aquí tu enlace de reservas de Google Calendar y todos los botones lo usarán.
+  const BOOKING_URL = "";
+  if (BOOKING_URL) document.querySelectorAll("[data-booking]").forEach(a => { a.href = BOOKING_URL; a.target = "_blank"; a.rel = "noopener"; });
+  const tabs = document.querySelectorAll(".vtabs button"), shots = document.querySelectorAll(".vshot img"), cap = document.querySelector(".vshot figcaption");
+  tabs.forEach(t => t.addEventListener("click", () => {
+    tabs.forEach(x => x.classList.toggle("on", x === t));
+    shots.forEach((im, i) => { im.hidden = i != t.dataset.i; if (!im.hidden) cap.textContent = im.dataset.cap; });
+  }));
+  shots.forEach(im => im.addEventListener("click", () => window.open(im.srcset ? im.srcset.split(",").pop().trim().split(" ")[0] : im.src, "_blank")));
+</script>
+
+<style is:global>
+.pbi section[id] { scroll-margin-top: 70px; }
+.pbi {
+  --bg: #fbf9fc; --bg-alt: #f5f1f6; --surface: #ffffff; --ink: #17121c; --muted: #5d5566; --line: #ebe4ee;
+  --purple: #9b3fb8; --pink: #e3175f; --pink-ink: #c0135a;
+  --grad: linear-gradient(90deg, var(--purple), var(--pink));
+  --radius: 18px; --max: 1130px;
+  font-size: 17px; line-height: 1.75; color: var(--ink);
+}
+.pbi .wrap { max-width: var(--max); margin: 0 auto; padding: 0 20px; }
+.pbi .btn { display: inline-block; padding: 14px 24px; border-radius: 999px; font-weight: 600; font-size: 16px; text-decoration: none; line-height: 1.2; }
+.pbi .btn.primary { background: var(--grad); color: #fff; box-shadow: 0 10px 24px -10px rgba(227, 23, 95, 0.6); }
+.pbi .btn.primary:hover { filter: brightness(1.05); }
+.pbi .btn.ghost { background: var(--surface); color: var(--ink); border: 1px solid var(--line); }
+.pbi .btn.small { padding: 9px 16px; font-size: 14px; }
+.pbi .btn.second { margin-left: 8px; }
+.pbi h1, .pbi h2, .pbi h3 { font-family: var(--font-head); letter-spacing: -0.02em; color: var(--ink); }
+.pbi h1 { font-size: clamp(36px, 5.2vw, 56px); line-height: 1.08; margin: 0 0 22px; }
+.pbi h1 .grad { background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.pbi h2 { font-size: clamp(28px, 3.6vw, 40px); line-height: 1.15; margin: 0 0 16px; }
+.pbi h3 { font-size: 19px; margin: 14px 0 6px; }
+.pbi .eyebrow { text-transform: uppercase; letter-spacing: 0.16em; font-size: 13px; font-weight: 700; color: var(--pink-ink); margin: 0 0 10px; }
+.pbi .chip { display: inline-block; border: 1px solid var(--line); background: var(--surface); border-radius: 999px; padding: 6px 14px; font-size: 14px; font-weight: 500; color: var(--pink-ink); margin-bottom: 22px; }
+.pbi .lead { font-size: 18px; color: var(--muted); max-width: 700px; margin: 0 0 28px; }
+.pbi .muted { color: var(--muted); }
+.pbi .note { color: var(--muted); font-size: 14px; margin-top: 14px; }
+.pbi section { padding: 80px 0; }
+.pbi section.alt { background: var(--bg-alt); }
+.pbi .hero { position: relative; overflow: hidden; }
+.pbi .hero::before { content: ""; position: absolute; left: -120px; top: -40px; width: 420px; height: 420px; border-radius: 50%; background: radial-gradient(circle, rgba(155, 63, 184, 0.10), transparent 70%); }
+.pbi .hero .wrap { position: relative; display: grid; grid-template-columns: 1.1fr 1fr; gap: 56px; align-items: center; }
+.pbi .stats { display: flex; gap: 32px; margin-top: 36px; }
+.pbi .stats b { display: block; font-family: var(--font-head); font-size: 28px; line-height: 1.1; }
+.pbi .stats span { color: var(--muted); font-size: 15px; }
+.pbi .mock-card { background: var(--surface); border-radius: 26px; padding: 22px; box-shadow: 0 30px 70px -25px rgba(227, 23, 95, 0.35), 0 0 0 1px var(--line); transform: rotate(-2deg); }
+.pbi .mock-card svg { display: block; width: 100%; height: auto; }
+.pbi .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 36px; }
+.pbi .card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 28px; box-shadow: 0 1px 2px rgba(23, 18, 28, 0.04); }
+.pbi .icon { display: inline-grid; place-items: center; width: 44px; height: 44px; border-radius: 12px; background: var(--bg-alt); font-size: 20px; }
+.pbi .card p { margin: 0; color: var(--muted); font-size: 16px; }
+.pbi .step-n { display: inline-grid; place-items: center; width: 44px; height: 44px; border-radius: 12px; background: var(--grad); color: #fff; font-family: var(--font-head); font-weight: 700; font-size: 18px; }
+.pbi .vtabs { display: flex; gap: 8px; flex-wrap: wrap; margin: 28px 0 16px; }
+.pbi .vtabs button { font: inherit; font-size: 15px; font-weight: 600; border: 1px solid var(--line); background: var(--surface); color: var(--muted); border-radius: 999px; padding: 9px 18px; cursor: pointer; }
+.pbi .vtabs button.on { background: var(--grad); color: #fff; border-color: transparent; }
+.pbi .vshot { padding: 14px; margin: 0; }
+.pbi .vshot img { display: block; width: 100%; height: auto; border-radius: 10px; cursor: zoom-in; }
+.pbi .vshot img[hidden] { display: none; }
+.pbi .vshot figcaption { color: var(--muted); font-size: 15px; padding: 14px 6px 4px; }
+.pbi figure { margin: 0; }
+.pbi .prices { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 36px; }
+.pbi .price { font-family: var(--font-head); font-size: 34px; font-weight: 700; letter-spacing: -0.02em; margin: 6px 0 14px; }
+.pbi .price small { font-family: var(--font-body); font-size: 15px; font-weight: 500; color: var(--muted); }
+.pbi .card ul { margin: 0; padding-left: 20px; color: var(--muted); }
+.pbi .cards.four { grid-template-columns: repeat(4, 1fr); gap: 16px; }
+.pbi .cards.four .card { padding: 22px; }
+.pbi .cards.four h3 { font-size: 17px; margin: 12px 0 6px; }
+.pbi .cards.four p { font-size: 15px; }
+.pbi .featured { position: relative; border: 2px solid transparent; background: linear-gradient(var(--surface), var(--surface)) padding-box, var(--grad) border-box; }
+.pbi .who { display: grid; grid-template-columns: 104px 1fr; gap: 32px; align-items: start; }
+.pbi .avatar { width: 104px; height: 104px; border-radius: 24px; background: var(--grad); color: #fff; display: grid; place-items: center; font-family: var(--font-head); font-weight: 700; font-size: 34px; }
+.pbi details { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 16px 20px; margin-bottom: 12px; }
+.pbi summary { cursor: pointer; font-weight: 600; }
+.pbi details p { margin: 10px 0 0; color: var(--muted); }
+.pbi .cta { text-align: center; }
+.pbi .cta .lead { margin-left: auto; margin-right: auto; }
+@media (max-width: 900px) {
+  .pbi .hero .wrap, .pbi .cards, .pbi .prices { grid-template-columns: 1fr; }
+  .pbi .cards.four { grid-template-columns: 1fr 1fr; gap: 12px; }
+  .pbi .vtabs button { font-size: 14px; padding: 8px 14px; }
+  .pbi .cards.four .card { padding: 16px; }
+  .pbi .mock-card { transform: none; }
+  .pbi section { padding: 56px 0; }
+  .pbi .who { grid-template-columns: 1fr; }
+  .pbi .stats { gap: 18px; flex-wrap: wrap; }
+  .pbi .stats b { font-size: 22px; }
+  .pbi .stats span { font-size: 13px; line-height: 1.4; display: block; }
+  .pbi .btn.second { margin: 10px 0 0; }
+}
+</style>
